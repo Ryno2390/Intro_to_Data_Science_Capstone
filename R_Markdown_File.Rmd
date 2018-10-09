@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### What is the problem you want to solve?
 
-Estimating the number of House seats gained or lost by Democrats and Republicans in the 2018 mid-term elections. The model would take into account the current make-up of the House of Representatives by party and estimate the net gain or loss of seats in the House for each party. 
+Estimate the number of House seats gained or lost by Democrats and Republicans in the 2018 mid-term elections. The model will take into account the current make-up of the House of Representatives by party and estimate the net gain or loss of seats in the House for each party. 
 
 ### Who is your client and why do they care about this problem? In other words, what will your client DO or DECIDE based on your analysis that they wouldn’t have otherwise?
 
@@ -28,7 +28,7 @@ I will use FiveThirtyEight.com's data which they make readily available on their
 
 ### In brief, outline your approach to solving this problem (knowing that this might change later).
 
-My approach will bet to understand FiveThirtyEight's model and to simplify the model as much as possible to conform with the goals of this course. I will then create a simplified model that can take new polling data to update it's net gain/loss prediction for each of the two parties.
+My approach will bet to understand FiveThirtyEight's model and to simplify the model as much as possible to conform with the goals of this course. I will then create a simplified model that can incorporate new polling data and update it's net gain/loss prediction for each of the two parties.
 
 ### What are your deliverables? Typically, this would include code, along with a paper and/or a slide deck.
 
