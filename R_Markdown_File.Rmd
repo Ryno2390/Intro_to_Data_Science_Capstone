@@ -3,28 +3,32 @@ title: "R_Markdown_File"
 author: "RStudio"
 date: "10/9/2018"
 output: html_document
+URL: https://github.com/Ryno2390/Intro_to_Data_Science_Capstone.git
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Project II: Submit Your Capstone Project Proposal
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Questions to Answer -- 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+### What is the problem you want to solve?
 
-```{r cars}
-summary(cars)
-```
+Estimating the number of House seats gained or lost by Democrats and Republicans in the 2018 mid-term elections. The model would take into account the current make-up of the House of Representatives by party and estimate the net gain or loss of seats in the House for each party. 
 
-## Including Plots
+### Who is your client and why do they care about this problem? In other words, what will your client DO or DECIDE based on your analysis that they wouldn’t have otherwise?
 
-You can also embed plots, for example:
+Generally speakig, lobbyists seek to "back a winning horse" - i.e. they intend to contribute as much money as possible, given their contribution budget constaint, to the winning candidate. Only the winning candidate gains political power, therefore lobbysts do not wish to diluate the power of their contibution budget by donating to multiple candidates in the same race. An accurate prediction model would enable lobbyst clients to make more informed donation decisions. 
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+### What data are you going to use for this? How will you acquire this data?
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+I will use FiveThirtyEight.com's data which they make readily available on their website.
+
+### In brief, outline your approach to solving this problem (knowing that this might change later).
+
+My approach will bet to understand FiveThirtyEight's model and to simplify the model as much as possible to conform with the goals of this course. I will then create a simplified model that can take new polling data to update it's net gain/loss prediction for each of the two parties.
+
+### What are your deliverables? Typically, this would include code, along with a paper and/or a slide deck.
+
