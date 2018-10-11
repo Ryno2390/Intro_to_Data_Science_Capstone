@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### What is the problem you want to solve?
 
-Estimate the number of House seats gained or lost by Democrats and Republicans in the 2018 mid-term elections. The model will take into account the current make-up of the House of Representatives by party and estimate the net gain or loss of seats in the House for each party. 
+Analyze the voting patterns of the US during the 2016 Presidential election - with a stretch goal of creating a prediction model of who would have won the 2016 Presidential election using FiveThirtyEight's election data. 
 
 ### Who is your client and why do they care about this problem? In other words, what will your client DO or DECIDE based on your analysis that they wouldn’t have otherwise?
 
@@ -24,11 +24,15 @@ Generally speakig, lobbyists seek to "back a winning horse" - i.e. they intend t
 
 ### What data are you going to use for this? How will you acquire this data?
 
-I will use FiveThirtyEight.com's data which they make readily available on their website.
+I will use FiveThirtyEight.com's data which is readily available through Kaggle (https://www.kaggle.com/fivethirtyeight/2016-election-polls#presidential_polls.csv)
 
 ### In brief, outline your approach to solving this problem (knowing that this might change later).
 
-My approach will bet to understand FiveThirtyEight's model and to simplify the model as much as possible to conform with the goals of this course. I will then create a simplified model that can incorporate new polling data and update it's net gain/loss prediction for each of the two parties.
+My approach will bet to understand FiveThirtyEight's model and to simplify the model as much as possible to conform with the goals of this course. I will then use the data to analyze regional voting patterns, with a stretch goal of creating a simplified model that can incorporate polling data to update it's prediction of who will win the election.
 
 ### What are your deliverables? Typically, this would include code, along with a paper and/or a slide deck.
 
+The deliverables will include:
+
++ A walkthrough of the model using RMarkdown
++ A detailed summary paper that analyzes regional voting trends as well as a prediction of who would win
