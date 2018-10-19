@@ -40,6 +40,76 @@ The deliverables will include:
 ```{r}
 library(readr)
 
-Data <- read_csv("presidential_polls.csv")
+Raw_Data <- read_csv("presidential_polls.csv")
+
+Raw_Data
+```
+
+There are many superfluous columns in this data set that are not useful for this project. These include:
+
++ cycle - all values are the same (i.e. set to "2016")
+
++ branch - all values are the same (i.e. set to "Presidential")
+
++ type - this determines which model FiveThirtyEight associates with each poll (i.e. "Now-Cast", "Polls-Only", or "Polls-Plus")
+
++ matchup - all values are the same (i.e. set to "Clinton vs. Trump vs. Johnson")
+
++ forecastdate - all values are the same (i.e. set to "11/1/2016")
+
++ rawpoll_johnson - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton or Trump) and therefore will exclude data for both Johnson and McMullin
+
++ rawpoll_mcmullin - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton or Trump) and therefore will exclude data for both Johnson and McMullin
+
++ adjpoll_johnson - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton or Trump) and therefore will exclude data for both Johnson and McMullin
+
++ adjpoll_mcmullin - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton or Trump) and therefore will exclude data for both Johnson and McMullin
+
++ multiversions - this field denotes if there were multiple versions of the same poll. My analysis will not make such a distinction and will simply take each poll at face value.
+
++ url - links to the original poll data location.
+
++ poll_id - unique identifier used by FiveThirtyEight cross-over use in other models.
+
++ question_id - unique identifer to determine the form of the poll question. I do not have access to the reference table for these questions so this will not be included in our data set.
+
++ createddate - date the data was inputted to the model. Irrelevant for my data set.
+
++ timestamp - date the model was rerun incorporating all the data up to that point. The model was last updated November 1st, 2018 and is irrelavnt to my data set.
+
+This leaves the following fields in my data set:
+
++ state - the state from which the poll was taken (the value "U.S." signifies a national poll)
+
++ startdate - the date for which the poll was begun
+
++ enddate - the date for which the poll was ended
+
++ pollster - the organization that conducted the poll
+
++ grade - the accuraacy rating of the polling organization, as determined by FiveThirtyEight by analyzing past predictions and comparing them to actual results.
+
++ samplesize - the size of the sample for the poll (i.e. the "n" value)
+
++ population - ???
+
++ poll_wt - the weight assigned to each poll predicated on the polling organization's grade
+
++ rawpoll_clinton - the raw percentage of respondents polled who plan on voting for Hillary Clinton
+
++ rawpoll_trump - the raw percentage of respondents polled who plan on voting for Donald Trump
+
++ adjpoll_clinton - the weight adjusted percentage of respondents polled who plan on voting for Hillary Clinton
+
++ adjpoll_trump - the weight adjusted percentage of respondents polled who plan on voting for Donald Trump
+
+# Remove superfluous columns from the data set to produce a clean data set
+
+```{r}
+library(dplyr)
+
+Clean_Data <- Raw_Data %>% select(-c(cycle:forecastdate, rawpoll_johnson, rawpoll_mcmullin, adjpoll_johnson:timestamp))
+
+Clean_Data
 ```
 
