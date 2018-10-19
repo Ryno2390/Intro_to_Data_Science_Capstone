@@ -36,3 +36,12 @@ The deliverables will include:
 
 + A walkthrough of the model using RMarkdown
 + A detailed summary paper that analyzes regional voting trends as well as a prediction of who would win
+
+# Upload data into RStudio
+
+```{r}
+library(readr)
+
+Data <- read_csv("presidential_polls.csv")
+```
+
