@@ -113,3 +113,34 @@ Clean_Data <- Raw_Data %>% select(-c(cycle:forecastdate, rawpoll_johnson, rawpol
 Clean_Data
 ```
 
+A quick overview of the "state" column reveals that there are really two different types of polls: purely state polls (which include specific congressional districts, as well as state-wide polls) and national polls. To get our bearings I will apply some statistics to the purely national polls at first; we will analyze regional variations in polling later.
+
+# Filter the data to include only "U.S." - or national - polls
+
+```{r}
+library(dplyr)
+
+National_Polls <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "U.S.")
+
+National_Polls
+```
+
+Now that we have the data we need we can do a simply scatter plot of the the rawpoll_clinton and rawpoll_trump fields over time (i.e. by enddate) to see if there are any patterns. Let's start with Clinton's raw polling data.
+
+```{r}
+install.packages("ggplot2")
+library("ggplot2")
+
+ggplot(data = National_Polls, aes(x=enddate, y=rawpoll_clinton)) +
+  geom_point()
+```
+
+Now, let's do the same for Trump's raw polling data.
+
+```{r}
+ggplot(data = National_Polls, aes(x=enddate, y=rawpoll_trump)) +
+  geom_point()
+```
+
