@@ -152,7 +152,9 @@ ggplot(data = National_Polls, aes(x=enddate, y=rawpoll_trump)) +
   geom_point()
 ```
 
-There are no immediatelt obvious patterns in the data. In fact, the data is quite "noisy" - even temporally similar polls can drastically differ. Smoothing out the data could be helpful in teasing out a meaningful pattern. One potentially useful smoothing technique is a moving average - a rolling average of all polls taken within a certain time frame. A moving average can help us find the "signal" among the "noise".
+One obvious pattern that stands out is that the number of polls increases over time. This makes sense, since as we get closer to election day, more and more polls are conducted in order to determine who the likely winner will be. Another obvious pattern is that the variation in the polls also increase over time - like a funnel that widens over time. 
+
+Perhaps the most important point to make about the data is that it is quite "noisy" - even temporally close polls can drastically differ in outcome. Smoothing out the data could be helpful in teasing out a meaningful pattern. One potentially useful smoothing technique is a moving average - a rolling average of all polls taken within a certain time frame. A moving average can help us find the "signal" among the "noise".
 
 Let's apply a 100 poll moving average to Clinton's raw polling data and plot it over time. This will provide us with a moving average of the last 100 polls.
 
@@ -160,20 +162,37 @@ Let's apply a 100 poll moving average to Clinton's raw polling data and plot it 
 install.packages("zoo")
 library(zoo)
 
-Clinton_Moving_Average <- National_Polls %>%
+National_Polls <- National_Polls %>%
   mutate(Clinton_MA = rollmean(rawpoll_clinton, 100, na.pad=TRUE, align="right"))
 
-ggplot(data = Clinton_Moving_Average, aes(x=enddate, y=Clinton_MA)) +
+ggplot(data = National_Polls, aes(x=enddate, y=Clinton_MA)) +
   geom_line()
 ```
 
 Let's now do the same for Trump's raw polling data.
 
 ```{r}
-Trump_Moving_Average <- National_Polls %>%
+National_Polls <- National_Polls %>%
   mutate(Trump_MA = rollmean(rawpoll_trump, 100, na.pad=TRUE, align="right"))
 
-ggplot(data = Trump_Moving_Average, aes(x=enddate, y=Trump_MA)) +
+ggplot(data = National_Polls, aes(x=enddate, y=Trump_MA)) +
   geom_line()
 ```
 
+After smoothing out the data we can see some clear patterns. Early on in the cycle it appears that Clinton had an early and substantial lead in the polls (though this is tempered by the fact that there were fewer polls during this earlier period). However, this early and substantial lead appears to erode over the summer, improving in the fall but never regaining those early leads. In contrast, Trump's polling data improved over time, starting around July, and spiking in the final weeks of the cycle.
+
+Another helpful way of looking at the data is by calculating a margin. So far, the data has been separated into columns for each candidate. Though this is useful, what really matters in elections is which candidate wins a higher percentage of the vote. In other words, what we want to know is the margin between Clinton and Trump.
+
+Since Clinton was favored to win early on, we will subtract Trump's polling figures from Clinton's to arrive at our Margin figure - but we could just as easily done the opposite.
+
+# Calculate the Clinton - Trump margin and plot it over time.
+
+```{r}
+National_Polls <- National_Polls %>%
+  mutate(Clinton_Margin = Clinton_MA - Trump_MA)
+
+ggplot(National_Polls, aes(x=enddate, y=Clinton_Margin)) +
+  geom_line()
+```
+
+Using this visualization of margin we can see more clearly the pattern in Clinton's chances of winning the presidency. We see an early rise in her chances as she widened her margin from January through May; however, her chances deteriorated throughout the Summer and Fall - reaching their lowest point in August (where it was actually net negative for the first time), only to regain in mid-September through mid-October period, preciptously falling back down in late October. If this late, falling trend were extended through election day (i.e. November 6th, 2016), it's entirely plausible that Clinton would have had a net negative margin on election day.
