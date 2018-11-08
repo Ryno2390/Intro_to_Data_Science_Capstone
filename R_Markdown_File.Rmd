@@ -103,7 +103,7 @@ This leaves the following fields in my data set:
 
 + adjpoll_trump - the weight adjusted percentage of respondents polled who plan on voting for Donald Trump
 
-# Remove superfluous columns from the data set to produce a clean data set
+### Remove superfluous columns from the data set to produce a clean data set
 
 ```{r}
 library(dplyr)
@@ -115,7 +115,7 @@ Clean_Data
 
 A quick overview of the "state" column reveals that there are really two different types of polls: purely state polls (which include specific congressional districts, as well as state-wide polls) and national polls. To get our bearings I will apply some statistics to the purely national polls at first; we will analyze regional variations in polling later.
 
-# Filter the data to include only "U.S." - or national - polls
+### Filter the data to include only "U.S." - or national - polls
 
 ```{r}
 library(dplyr)
@@ -133,7 +133,7 @@ National_Polls
 
 Now that we have the data we need we can do a simply scatter plot of the the rawpoll_clinton and rawpoll_trump fields over time (i.e. by enddate) to see if there are any patterns. Let's start with Clinton's raw polling data.
 
-# Install ggplot2 and plot the rawpoll_clinton data over time to see if there are any obvious patterns.
+### Install ggplot2 and plot the rawpoll_clinton data over time to see if there are any obvious patterns.
 
 ```{r}
 install.packages("ggplot2")
@@ -145,7 +145,7 @@ ggplot(data = National_Polls, aes(x=enddate, y=rawpoll_clinton)) +
 
 Now, let's do the same for Trump's raw polling data.
 
-# Plot the rawpoll_trump data over time to see if there are any obvious patterns.
+### Plot the rawpoll_trump data over time to see if there are any obvious patterns.
 
 ```{r}
 ggplot(data = National_Polls, aes(x=enddate, y=rawpoll_trump)) +
@@ -185,7 +185,7 @@ Another helpful way of looking at the data is by calculating a margin. So far, t
 
 Since Clinton was favored to win early on, we will subtract Trump's polling figures from Clinton's to arrive at our Margin figure - but we could just as easily done the opposite.
 
-# Calculate the Clinton - Trump margin and plot it over time.
+### Calculate the Clinton - Trump margin and plot it over time.
 
 ```{r}
 National_Polls <- National_Polls %>%
@@ -196,3 +196,11 @@ ggplot(National_Polls, aes(x=enddate, y=Clinton_Margin)) +
 ```
 
 Using this visualization of margin we can see more clearly the pattern in Clinton's chances of winning the presidency. We see an early rise in her chances as she widened her margin from January through May; however, her chances deteriorated throughout the Summer and Fall - reaching their lowest point in August (where it was actually net negative for the first time), only to regain in mid-September through mid-October period, preciptously falling back down in late October. If this late, falling trend were extended through election day (i.e. November 6th, 2016), it's entirely plausible that Clinton would have had a net negative margin on election day.
+
+# This is NOT a popularity contest
+
+This is all well and interesting but in American presidential elections the president is chosen not through the popular vote but through the Electoral College. If you are interested in learning more about the Electoral College there are great resources online (https://en.wikipedia.org/wiki/United_States_Electoral_College), but at a very basic level, each state recieves a total number of electoral votes equal to its representation in Congress. 
+
+More specifically, each state's total number of electors is equal to the combined total of the state's membership in the Senate and House of Representatives; currently there are 100 senators (2 for each state) and 435 representatives. Additionally, the Twenty-third Amendment of the U.S. Constitution dictates that the District of Columbia (which is NOT a state) is entitled to a number of electors no greater or less than that of the least populous state (i.e. 3 electoral votes), for a total of 538 electoral votes.
+
+Therefore, to win, an American Presidential candidate must win an absolute majority of 270 electoral votes to become president. Therefore, in order to create a model that accurately predicts who will become president, and NOT who will win the most votes, we need to predict the winner in each state, and allocate each state's electoral votes to the predicted winner of each state. The first candidate to 270 wins!
