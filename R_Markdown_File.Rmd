@@ -119,15 +119,21 @@ A quick overview of the "state" column reveals that there are really two differe
 
 ```{r}
 library(dplyr)
+install.packages("lubridate")
+library(lubridate)
 
 National_Polls <- Clean_Data %>% 
   select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "U.S.")
+  filter(state == "U.S.") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
 
 National_Polls
 ```
 
 Now that we have the data we need we can do a simply scatter plot of the the rawpoll_clinton and rawpoll_trump fields over time (i.e. by enddate) to see if there are any patterns. Let's start with Clinton's raw polling data.
+
+# Install ggplot2 and plot the rawpoll_clinton data over time to see if there are any obvious patterns.
 
 ```{r}
 install.packages("ggplot2")
@@ -139,8 +145,35 @@ ggplot(data = National_Polls, aes(x=enddate, y=rawpoll_clinton)) +
 
 Now, let's do the same for Trump's raw polling data.
 
+# Plot the rawpoll_trump data over time to see if there are any obvious patterns.
+
 ```{r}
 ggplot(data = National_Polls, aes(x=enddate, y=rawpoll_trump)) +
   geom_point()
+```
+
+There are no immediatelt obvious patterns in the data. In fact, the data is quite "noisy" - even temporally similar polls can drastically differ. Smoothing out the data could be helpful in teasing out a meaningful pattern. One potentially useful smoothing technique is a moving average - a rolling average of all polls taken within a certain time frame. A moving average can help us find the "signal" among the "noise".
+
+Let's apply a 100 poll moving average to Clinton's raw polling data and plot it over time. This will provide us with a moving average of the last 100 polls.
+
+```{r}
+install.packages("zoo")
+library(zoo)
+
+Clinton_Moving_Average <- National_Polls %>%
+  mutate(Clinton_MA = rollmean(rawpoll_clinton, 100, na.pad=TRUE, align="right"))
+
+ggplot(data = Clinton_Moving_Average, aes(x=enddate, y=Clinton_MA)) +
+  geom_line()
+```
+
+Let's now do the same for Trump's raw polling data.
+
+```{r}
+Trump_Moving_Average <- National_Polls %>%
+  mutate(Trump_MA = rollmean(rawpoll_trump, 100, na.pad=TRUE, align="right"))
+
+ggplot(data = Trump_Moving_Average, aes(x=enddate, y=Trump_MA)) +
+  geom_line()
 ```
 
