@@ -110,10 +110,10 @@ library(dplyr)
 
 Clean_Data <- Raw_Data %>% select(-c(cycle:forecastdate, rawpoll_johnson, rawpoll_mcmullin, adjpoll_johnson:timestamp))
 
-Clean_Data
+str(Clean_Data)
 ```
 
-A quick overview of the "state" column reveals that there are really two different types of polls: purely state polls (which include specific congressional districts, as well as state-wide polls) and national polls. To get our bearings I will apply some statistics to the purely national polls at first; we will analyze regional variations in polling later.
+A quick overview of the "state" column reveals that there are really two different types of polls: purely state polls (which include speocific congressional districts, as well as state-wide polls) and national polls. To get our bearings I will apply some statistics to the purely national polls at first; we will analyze regiaonal variations in polling later.
 
 ### Filter the data to include only "U.S." - or national - polls
 
@@ -128,7 +128,7 @@ National_Polls <- Clean_Data %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
 
-National_Polls
+str(National_Polls)
 ```
 
 Now that we have the data we need we can do a simply scatter plot of the the rawpoll_clinton and rawpoll_trump fields over time (i.e. by enddate) to see if there are any patterns. Let's start with Clinton's raw polling data.
@@ -204,3 +204,416 @@ This is all well and interesting but in American presidential elections the pres
 More specifically, each state's total number of electors is equal to the combined total of the state's membership in the Senate and House of Representatives; currently there are 100 senators (2 for each state) and 435 representatives. Additionally, the Twenty-third Amendment of the U.S. Constitution dictates that the District of Columbia (which is NOT a state) is entitled to a number of electors no greater or less than that of the least populous state (i.e. 3 electoral votes), for a total of 538 electoral votes.
 
 Therefore, to win, an American Presidential candidate must win an absolute majority of 270 electoral votes to become president. Therefore, in order to create a model that accurately predicts who will become president, and NOT who will win the most votes, we need to predict the winner in each state, and allocate each state's electoral votes to the predicted winner of each state. The first candidate to 270 wins!
+
+
+```{r}
+# Alabama
+Alabama <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Alabama") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Alabama)
+
+# Alaska
+Alaska <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Alaska") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Alaska)
+
+# Arizona
+Arizona <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Arizona") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Arizona)
+
+# Arkansas
+Arkansas <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Arkansas") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Arkansas)
+
+# California
+California <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "California") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(California)
+
+# Colorado
+Colorado <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Colorado") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Colorado)
+
+# Connecticut
+Connecticut <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Connecticut") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Connecticut)
+
+# Delaware
+Delaware <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Delaware") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Delaware)
+
+# District_of_Columbia  
+District_of_Columbia <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "District of Columbia") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(District_of_Columbia)
+
+# Florida
+Florida <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Florida") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Florida)
+
+# Georgia
+Georgia <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Georgia") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Georgia)
+
+# Hawaii
+Hawaii <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Hawaii") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Hawaii)
+
+#Idaho
+Idaho <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Idaho") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Idaho)
+
+# Illinois
+Illinois <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Illinois") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Illinois)
+
+# Indiana
+Indiana <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Indiana") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Indiana)
+
+# Iowa
+Iowa <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Iowa") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Iowa)
+
+# Kansas
+Kansas <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Kansas") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Kansas)
+
+# Kentucky
+Kentucky <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Kentucky") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Kentucky)
+
+# Louisiana
+Louisiana <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Louisiana") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Louisiana)
+
+# Maine
+Maine <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Maine") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Maine)
+
+# Maryland
+Maryland <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Maryland") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Maryland)
+
+# Massachusetts
+Massachusetts <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Massachusetts") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Massachusetts)
+
+# Michigan
+Michigan <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Michigan") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Michigan)
+
+# Minnesota
+Minnesota <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Minnesota") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Minnesota)
+
+# Mississippi
+Mississippi <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Mississippi") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Mississippi)
+
+# Missouri
+Missouri <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Missouri") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Missouri)
+
+# Montana
+Montana <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Montana") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Montana)
+
+# Nebraska  
+Nebraska <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Nebraska") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Nebraska)
+
+# Nevada
+Nevada <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Nevada") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Nevada)
+
+# New_Hampshire
+New_Hampshire <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "New Hampshire") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(New_Hampshire)
+
+# New_Jersey
+New_Jersey <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "New Jersey") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(New_Jersey)
+
+# New_Mexico
+New_Mexico <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "New Mexico") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(New_Mexico)
+
+# New_York
+New_York <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "New York") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(New_York)
+
+# North_Carolina
+North_Carolina <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "North Carolina") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(North_Carolina)
+
+# North_Dakota
+North_Dakota <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "North Dakota") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(North_Dakota)
+
+# Ohio
+Ohio <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Ohio") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Ohio)
+
+# Oklahoma
+Oklahoma <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Oklahoma") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Oklahoma)
+
+# Oregon
+Oregon <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Oregon") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Oregon)
+
+# Pennsylvania
+Pennsylvania <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Pennsylvania") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Pennsylvania)
+
+# Rhode_Island
+Rhode_Island <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Rhode Island") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Rhode_Island)
+
+# South_Carolina
+South_Carolina <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "South Carolina") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(South_Carolina)
+
+# South_Dakota
+South_Dakota <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "South Dakota") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(South_Dakota)
+
+# Tennessee
+Tennessee <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Tennessee") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Tennessee)
+
+# Texas
+Texas <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Texas") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Texas)
+
+# Utah
+Utah <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Utah") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Utah)
+
+# Vermont
+Vermont <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Vermont") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Vermont)
+
+# Virginia
+Virginia <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Virginia") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Virginia)
+
+# Washington
+Washington <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Washington") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Washington)
+
+# West_Virginia
+West_Virginia <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "West Virginia") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(West_Virginia)
+
+# Wisconsin
+Wisconsin <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Wisconsin") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Wisconsin)
+
+# Wyoming
+Wyoming <- Clean_Data %>% 
+  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state == "Wyoming") %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+str(Wyoming)
+
+```
+
