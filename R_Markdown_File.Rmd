@@ -212,7 +212,19 @@ Alabama <- Clean_Data %>%
   filter(state == "Alabama") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
-str(Alabama)
+
+Alabama <- Alabama %>%
+  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
+summary(Alabama)
+
+Alabama_Train <- National_Polls 
+Alabama_Test <- Alabama
+
+Alabama_model <- glm()
+Alabama_predict <- predict(Alabama_model, type = "response")
+
+table(, Alabama_predict >= 0.5)
+
 
 # Alaska
 Alaska <- Clean_Data %>% 
@@ -220,6 +232,7 @@ Alaska <- Clean_Data %>%
   filter(state == "Alaska") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Alaska)
 
 # Arizona
@@ -228,6 +241,7 @@ Arizona <- Clean_Data %>%
   filter(state == "Arizona") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Arizona)
 
 # Arkansas
@@ -236,6 +250,7 @@ Arkansas <- Clean_Data %>%
   filter(state == "Arkansas") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Arkansas)
 
 # California
@@ -244,6 +259,7 @@ California <- Clean_Data %>%
   filter(state == "California") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(California)
 
 # Colorado
@@ -252,6 +268,7 @@ Colorado <- Clean_Data %>%
   filter(state == "Colorado") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Colorado)
 
 # Connecticut
@@ -260,6 +277,7 @@ Connecticut <- Clean_Data %>%
   filter(state == "Connecticut") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Connecticut)
 
 # Delaware
@@ -268,6 +286,7 @@ Delaware <- Clean_Data %>%
   filter(state == "Delaware") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Delaware)
 
 # District_of_Columbia  
@@ -276,6 +295,7 @@ District_of_Columbia <- Clean_Data %>%
   filter(state == "District of Columbia") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(District_of_Columbia)
 
 # Florida
@@ -284,6 +304,7 @@ Florida <- Clean_Data %>%
   filter(state == "Florida") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Florida)
 
 # Georgia
@@ -292,6 +313,7 @@ Georgia <- Clean_Data %>%
   filter(state == "Georgia") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Georgia)
 
 # Hawaii
@@ -300,6 +322,7 @@ Hawaii <- Clean_Data %>%
   filter(state == "Hawaii") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Hawaii)
 
 #Idaho
@@ -308,6 +331,7 @@ Idaho <- Clean_Data %>%
   filter(state == "Idaho") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Idaho)
 
 # Illinois
@@ -316,6 +340,7 @@ Illinois <- Clean_Data %>%
   filter(state == "Illinois") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Illinois)
 
 # Indiana
@@ -324,6 +349,7 @@ Indiana <- Clean_Data %>%
   filter(state == "Indiana") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Indiana)
 
 # Iowa
@@ -332,6 +358,7 @@ Iowa <- Clean_Data %>%
   filter(state == "Iowa") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Iowa)
 
 # Kansas
@@ -340,6 +367,7 @@ Kansas <- Clean_Data %>%
   filter(state == "Kansas") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Kansas)
 
 # Kentucky
@@ -348,6 +376,7 @@ Kentucky <- Clean_Data %>%
   filter(state == "Kentucky") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Kentucky)
 
 # Louisiana
@@ -356,6 +385,7 @@ Louisiana <- Clean_Data %>%
   filter(state == "Louisiana") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Louisiana)
 
 # Maine
@@ -364,6 +394,7 @@ Maine <- Clean_Data %>%
   filter(state == "Maine") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Maine)
 
 # Maryland
@@ -372,6 +403,7 @@ Maryland <- Clean_Data %>%
   filter(state == "Maryland") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Maryland)
 
 # Massachusetts
@@ -380,6 +412,7 @@ Massachusetts <- Clean_Data %>%
   filter(state == "Massachusetts") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Massachusetts)
 
 # Michigan
@@ -388,6 +421,7 @@ Michigan <- Clean_Data %>%
   filter(state == "Michigan") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Michigan)
 
 # Minnesota
@@ -396,6 +430,7 @@ Minnesota <- Clean_Data %>%
   filter(state == "Minnesota") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Minnesota)
 
 # Mississippi
@@ -404,6 +439,7 @@ Mississippi <- Clean_Data %>%
   filter(state == "Mississippi") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Mississippi)
 
 # Missouri
@@ -412,6 +448,7 @@ Missouri <- Clean_Data %>%
   filter(state == "Missouri") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Missouri)
 
 # Montana
@@ -420,6 +457,7 @@ Montana <- Clean_Data %>%
   filter(state == "Montana") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Montana)
 
 # Nebraska  
@@ -428,6 +466,7 @@ Nebraska <- Clean_Data %>%
   filter(state == "Nebraska") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Nebraska)
 
 # Nevada
@@ -436,6 +475,7 @@ Nevada <- Clean_Data %>%
   filter(state == "Nevada") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Nevada)
 
 # New_Hampshire
@@ -444,6 +484,7 @@ New_Hampshire <- Clean_Data %>%
   filter(state == "New Hampshire") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(New_Hampshire)
 
 # New_Jersey
@@ -452,6 +493,7 @@ New_Jersey <- Clean_Data %>%
   filter(state == "New Jersey") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(New_Jersey)
 
 # New_Mexico
@@ -460,6 +502,7 @@ New_Mexico <- Clean_Data %>%
   filter(state == "New Mexico") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(New_Mexico)
 
 # New_York
@@ -468,6 +511,7 @@ New_York <- Clean_Data %>%
   filter(state == "New York") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(New_York)
 
 # North_Carolina
@@ -476,6 +520,7 @@ North_Carolina <- Clean_Data %>%
   filter(state == "North Carolina") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(North_Carolina)
 
 # North_Dakota
@@ -484,6 +529,7 @@ North_Dakota <- Clean_Data %>%
   filter(state == "North Dakota") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(North_Dakota)
 
 # Ohio
@@ -492,6 +538,7 @@ Ohio <- Clean_Data %>%
   filter(state == "Ohio") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Ohio)
 
 # Oklahoma
@@ -500,6 +547,7 @@ Oklahoma <- Clean_Data %>%
   filter(state == "Oklahoma") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Oklahoma)
 
 # Oregon
@@ -508,6 +556,7 @@ Oregon <- Clean_Data %>%
   filter(state == "Oregon") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Oregon)
 
 # Pennsylvania
@@ -516,6 +565,7 @@ Pennsylvania <- Clean_Data %>%
   filter(state == "Pennsylvania") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Pennsylvania)
 
 # Rhode_Island
@@ -524,6 +574,7 @@ Rhode_Island <- Clean_Data %>%
   filter(state == "Rhode Island") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Rhode_Island)
 
 # South_Carolina
@@ -532,6 +583,7 @@ South_Carolina <- Clean_Data %>%
   filter(state == "South Carolina") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(South_Carolina)
 
 # South_Dakota
@@ -540,6 +592,7 @@ South_Dakota <- Clean_Data %>%
   filter(state == "South Dakota") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(South_Dakota)
 
 # Tennessee
@@ -548,6 +601,7 @@ Tennessee <- Clean_Data %>%
   filter(state == "Tennessee") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Tennessee)
 
 # Texas
@@ -556,6 +610,7 @@ Texas <- Clean_Data %>%
   filter(state == "Texas") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Texas)
 
 # Utah
@@ -564,6 +619,7 @@ Utah <- Clean_Data %>%
   filter(state == "Utah") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Utah)
 
 # Vermont
@@ -572,6 +628,7 @@ Vermont <- Clean_Data %>%
   filter(state == "Vermont") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Vermont)
 
 # Virginia
@@ -580,6 +637,7 @@ Virginia <- Clean_Data %>%
   filter(state == "Virginia") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Virginia)
 
 # Washington
@@ -588,6 +646,7 @@ Washington <- Clean_Data %>%
   filter(state == "Washington") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Washington)
 
 # West_Virginia
@@ -596,6 +655,7 @@ West_Virginia <- Clean_Data %>%
   filter(state == "West Virginia") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(West_Virginia)
 
 # Wisconsin
@@ -604,6 +664,7 @@ Wisconsin <- Clean_Data %>%
   filter(state == "Wisconsin") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Wisconsin)
 
 # Wyoming
@@ -612,6 +673,7 @@ Wyoming <- Clean_Data %>%
   filter(state == "Wyoming") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
+
 str(Wyoming)
 
 ```
