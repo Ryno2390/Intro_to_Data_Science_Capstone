@@ -42,7 +42,7 @@ library(readr)
 
 Raw_Data <- read_csv("presidential_polls.csv")
 
-Raw_Data
+str(Raw_Data)
 ```
 
 There are many superfluous columns in this data set that are not useful for this project. These include:
@@ -118,7 +118,6 @@ A quick overview of the "state" column reveals that there are really two differe
 ### Filter the data to include only "U.S." - or national - polls
 
 ```{r}
-library(dplyr)
 install.packages("lubridate")
 library(lubridate)
 
