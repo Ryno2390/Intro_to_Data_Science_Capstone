@@ -208,23 +208,14 @@ Therefore, to win, an American Presidential candidate must win an absolute major
 ```{r}
 # Alabama
 Alabama <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  select(state, enddate, pollster, samplesize, rawpoll_clinton, rawpoll_trump) %>%
   filter(state == "Alabama") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
 
 Alabama <- Alabama %>%
   mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-summary(Alabama)
-
-Alabama_Train <- National_Polls 
-Alabama_Test <- Alabama
-
-Alabama_model <- glm()
-Alabama_predict <- predict(Alabama_model, type = "response")
-
-table(, Alabama_predict >= 0.5)
-
+str(Alabama)
 
 # Alaska
 Alaska <- Clean_Data %>% 
