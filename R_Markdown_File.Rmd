@@ -206,9 +206,6 @@ Therefore, to win, an American Presidential candidate must win an absolute major
 
 
 ```{r}
-library(dplyr)
-library(lubridate)
-library(ggplot2)
 
 # Alabama
 Alabama <- Clean_Data %>% 
