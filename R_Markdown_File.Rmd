@@ -805,8 +805,6 @@ plot(clusterStates)
 clusterGroups <- cutree(clusterStates, k = 3)
 
 # Alabama
-clusterGroups[State_Polls$state == "Alabama"]
-mean(clusterGroups[State_Polls$state == "Alabama"])
 round(mean(clusterGroups[State_Polls$state == "Alabama"]))
 
 # Alaska
