@@ -805,157 +805,208 @@ plot(clusterStates)
 clusterGroups <- cutree(clusterStates, k = 3)
 
 # Alabama
-round(mean(clusterGroups[State_Polls$state == "Alabama"]))
+Alabama_Cluster <- round(mean(clusterGroups[State_Polls$state == "Alabama"]))
+Alabama_Cluster
 
 # Alaska
-round(mean(clusterGroups[State_Polls$state == "Alaska"]))
+Alaska_Cluster <- round(mean(clusterGroups[State_Polls$state == "Alaska"]))
+Alaska_Cluster
 
 # Arizona
-round(mean(clusterGroups[State_Polls$state == "Arizona"]))
+Arizona_Cluster <- round(mean(clusterGroups[State_Polls$state == "Arizona"]))
+Arizona_Cluster
 
 # Arkansas
-round(mean(clusterGroups[State_Polls$state == "Arkansas"]))
+Arkansas_Cluster <- round(mean(clusterGroups[State_Polls$state == "Arkansas"]))
+Arkansas_Cluster
 
 # California
-round(mean(clusterGroups[State_Polls$state == "California"]))
+California_Cluster <- round(mean(clusterGroups[State_Polls$state == "California"]))
+California_Cluster
 
 # Colorado
-round(mean(clusterGroups[State_Polls$state == "Colorado"]))
+Colorado_Cluster <- round(mean(clusterGroups[State_Polls$state == "Colorado"]))
+Colorado_Cluster
 
 # Connecticut
-round(mean(clusterGroups[State_Polls$state == "Connecticut"]))
+Connecticut_Cluster <- round(mean(clusterGroups[State_Polls$state == "Connecticut"]))
+Connecticut_Cluster
 
-# District_of_Columbia
-round(mean(clusterGroups[State_Polls$state == "District of Columbia"]))
+# District of Columbia
+District_of_Columbia_Cluster <- round(mean(clusterGroups[State_Polls$state == "District of Columbia"]))
+District_of_Columbia_Cluster
 
 # Delaware
-round(mean(clusterGroups[State_Polls$state == "Delaware"]))
+Delaware_Cluster <- round(mean(clusterGroups[State_Polls$state == "Delaware"]))
+Delaware_Cluster
 
 # Florida
-round(mean(clusterGroups[State_Polls$state == "Florida"]))
+Florida_Cluster <- round(mean(clusterGroups[State_Polls$state == "Florida"]))
+Florida_Cluster
 
 # Georgia
-round(mean(clusterGroups[State_Polls$state == "Georgia"]))
+Georgia_Cluster <- round(mean(clusterGroups[State_Polls$state == "Georgia"]))
+Georgia_Cluster
 
 # Hawaii
-round(mean(clusterGroups[State_Polls$state == "Hawaii"]))
+Hawaii_Cluster <- round(mean(clusterGroups[State_Polls$state == "Hawaii"]))
+Hawaii_Cluster
 
 # Idaho
-round(mean(clusterGroups[State_Polls$state == "Idaho"]))
+Idaho_Cluster <- round(mean(clusterGroups[State_Polls$state == "Idaho"]))
+Idaho_Cluster
 
 # Illinois
-round(mean(clusterGroups[State_Polls$state == "Illinois"]))
+Illinois_Cluster <- round(mean(clusterGroups[State_Polls$state == "Illinois"]))
+Illinois_Cluster
 
 # Indiana
-round(mean(clusterGroups[State_Polls$state == "Indiana"]))
+Indiana_Cluster <- round(mean(clusterGroups[State_Polls$state == "Indiana"]))
+Indiana_Cluster
 
 # Iowa
-round(mean(clusterGroups[State_Polls$state == "Iowa"]))
+Iowa_Cluster <- round(mean(clusterGroups[State_Polls$state == "Iowa"]))
+Iowa_Cluster
 
 # Kansas
-round(mean(clusterGroups[State_Polls$state == "Kansas"]))
+Kansas_Cluster <- round(mean(clusterGroups[State_Polls$state == "Kansas"]))
+Kansas_Cluster
 
 # Kentucky
-round(mean(clusterGroups[State_Polls$state == "Kentucky"]))
+Kentucky_Cluster <- round(mean(clusterGroups[State_Polls$state == "Kentucky"]))
+Kentucky_Cluster
 
 # Louisiana
-round(mean(clusterGroups[State_Polls$state == "Louisiana"]))
+Louisiana_Cluster <- round(mean(clusterGroups[State_Polls$state == "Louisiana"]))
+Louisiana_Cluster
 
 # Maine
-round(mean(clusterGroups[State_Polls$state == "Maine"]))
+Maine_Cluster <- round(mean(clusterGroups[State_Polls$state == "Maine"]))
+Maine_Cluster
 
 # Maryland
-round(mean(clusterGroups[State_Polls$state == "Maryland"]))
+Maryland_Cluster <- round(mean(clusterGroups[State_Polls$state == "Maryland"]))
+Maryland_Cluster
 
 # Massachusetts
-round(mean(clusterGroups[State_Polls$state == "Massachusetts"]))
+Massachusetts_Cluster <- round(mean(clusterGroups[State_Polls$state == "Massachusetts"]))
+Massachusetts_Cluster
 
 # Michigan
-round(mean(clusterGroups[State_Polls$state == "Michigan"]))
+Michigan_Cluster <- round(mean(clusterGroups[State_Polls$state == "Michigan"]))
+Michigan_Cluster
 
 # Minnesota
-round(mean(clusterGroups[State_Polls$state == "Minnesota"]))
+Minnesota_Cluster <- round(mean(clusterGroups[State_Polls$state == "Minnesota"]))
+Minnesota_Cluster
 
 # Mississippi
-round(mean(clusterGroups[State_Polls$state == "Mississippi"]))
+Mississippi_Cluster <- round(mean(clusterGroups[State_Polls$state == "Mississippi"]))
+Mississippi_Cluster
 
 # Missouri
-round(mean(clusterGroups[State_Polls$state == "Missouri"]))
+Missouri_Cluster <- round(mean(clusterGroups[State_Polls$state == "Missouri"]))
+Missouri_Cluster
 
 # Montana
-round(mean(clusterGroups[State_Polls$state == "Montana"]))
+Montana_Cluster <- round(mean(clusterGroups[State_Polls$state == "Montana"]))
+Montana_Cluster
 
 # Nebraska
-round(mean(clusterGroups[State_Polls$state == "Nebraska"]))
+Nebraska_Cluster <- round(mean(clusterGroups[State_Polls$state == "Nebraska"]))
+Nebraska_Cluster
 
 # Nevada
-round(mean(clusterGroups[State_Polls$state == "Nevada"]))
+Nevada_Cluster <- round(mean(clusterGroups[State_Polls$state == "Nevada"]))
+Nevada_Cluster
 
 # New Hampshire
-round(mean(clusterGroups[State_Polls$state == "New Hampshire"]))
+New_Hampshire_Cluster <- round(mean(clusterGroups[State_Polls$state == "New Hampshire"]))
+New_Hampshire_Cluster
 
 # New Jersey
-round(mean(clusterGroups[State_Polls$state == "New Jersey"]))
+New_Jersey_Cluster <- round(mean(clusterGroups[State_Polls$state == "New Jersey"]))
+New_Jersey_Cluster
 
 # New Mexico
-round(mean(clusterGroups[State_Polls$state == "New Mexico"]))
+New_Mexico_Cluster <- round(mean(clusterGroups[State_Polls$state == "New Mexico"]))
+New_Mexico_Cluster
 
 # New York
-round(mean(clusterGroups[State_Polls$state == "New York"]))
+New_York_Cluster <- round(mean(clusterGroups[State_Polls$state == "New York"]))
+New_York_Cluster
 
 # North Carolina
-round(mean(clusterGroups[State_Polls$state == "North Carolina"]))
+North_Carolina_Cluster <- round(mean(clusterGroups[State_Polls$state == "North Carolina"]))
+North_Carolina_Cluster
 
 # North Dakota
-round(mean(clusterGroups[State_Polls$state == "North Dakota"]))
+North_Dakota_Cluster <- round(mean(clusterGroups[State_Polls$state == "North Dakota"]))
+North_Dakota_Cluster
 
 # Ohio
-round(mean(clusterGroups[State_Polls$state == "Ohio"]))
+Ohio_Cluster <- round(mean(clusterGroups[State_Polls$state == "Ohio"]))
+Ohio_Cluster
 
 # Oklahoma
-round(mean(clusterGroups[State_Polls$state == "Oklahoma"]))
+Oklahoma_Cluster <- round(mean(clusterGroups[State_Polls$state == "Oklahoma"]))
+Oklahoma_Cluster
 
 # Oregon
-round(mean(clusterGroups[State_Polls$state == "Oregon"]))
+Oregon_Cluster <- round(mean(clusterGroups[State_Polls$state == "Oregon"]))
+Oregon_Cluster
 
 # Pennsylvania
-round(mean(clusterGroups[State_Polls$state == "Pennsylvania"]))
+Pennsylvania_Cluster <- round(mean(clusterGroups[State_Polls$state == "Pennsylvania"]))
+Pennsylvania_Cluster
 
 # Rhode Island
-round(mean(clusterGroups[State_Polls$state == "Rhode Island"]))
+Rhode_Island_Cluster <- round(mean(clusterGroups[State_Polls$state == "Rhode Island"]))
+Rhode_Island_Cluster
 
 # South Carolina
-round(mean(clusterGroups[State_Polls$state == "South Carolina"]))
+South_Carolina_Cluster <- round(mean(clusterGroups[State_Polls$state == "South Carolina"]))
+South_Carolina_Cluster
 
 # South Dakota
-round(mean(clusterGroups[State_Polls$state == "South Dakota"]))
+South_Dakota_Cluster <- round(mean(clusterGroups[State_Polls$state == "South Dakota"]))
+South_Dakota_Cluster
 
 # Tennessee
-round(mean(clusterGroups[State_Polls$state == "Tennessee"]))
+Tennessee_Cluster <- round(mean(clusterGroups[State_Polls$state == "Tennessee"]))
+Tennessee_Cluster
 
 # Texas
-round(mean(clusterGroups[State_Polls$state == "Texas"]))
+Texas_Cluster <- round(mean(clusterGroups[State_Polls$state == "Texas"]))
+Texas_Cluster
 
 # Utah
-round(mean(clusterGroups[State_Polls$state == "Utah"]))
+Utah_Cluster <- round(mean(clusterGroups[State_Polls$state == "Utah"]))
+Utah_Cluster
 
 # Vermont
-round(mean(clusterGroups[State_Polls$state == "Vermont"]))
+Vermont_Cluster <- round(mean(clusterGroups[State_Polls$state == "Vermont"]))
+Vermont_Cluster
 
 # Virginia
-round(mean(clusterGroups[State_Polls$state == "Virginia"]))
+Virginia_Cluster <- round(mean(clusterGroups[State_Polls$state == "Virginia"]))
+Virginia_Cluster
 
 # Washington
-round(mean(clusterGroups[State_Polls$state == "Washington"]))
+Washington_Cluster <- round(mean(clusterGroups[State_Polls$state == "Washington"]))
+Washington_Cluster
 
 # West Virginia
-round(mean(clusterGroups[State_Polls$state == "West Virginia"]))
+West_Virginia_Cluster <- round(mean(clusterGroups[State_Polls$state == "West Virginia"]))
+West_Virginia_Cluster
 
 # Wisconsin
-round(mean(clusterGroups[State_Polls$state == "Wisconsin"]))
+Wisconsin_Cluster <- round(mean(clusterGroups[State_Polls$state == "Wisconsin"]))
+Wisconsin_Cluster
 
 # Wyoming
-round(mean(clusterGroups[State_Polls$state == "Wyoming"]))
+Wyoming_Cluster <- round(mean(clusterGroups[State_Polls$state == "Wyoming"]))
+Wyoming_Cluster
 
 ```
 
