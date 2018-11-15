@@ -781,7 +781,6 @@ It does not make sense for a campaign to commit resources to a state that is hig
 Toward this end, a k-means clustering model would help us in determining which states are considered solidly Clinton, which states are solidly Trump, and - most importantly - which states are swing states. By choosing a k = 3, we subdivide the states into Clinton, Trump, and Swing.
 
 ```{r}
-
 State_Polls <- Clean_Data %>%
   select(state, pollster, rawpoll_clinton, rawpoll_trump) %>%
   filter(state != "U.S.") %>%
@@ -792,7 +791,9 @@ State_Polls <- Clean_Data %>%
   filter(state != "Nebraska CD-3") %>%
   mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
 str(State_Polls)
-  
+```
+
+```{r}
 State_Polls$rawpoll_clinton = NULL
 State_Polls$rawpoll_trump = NULL
 State_Polls <- unique(State_Polls)
@@ -803,7 +804,9 @@ clusterStates <- hclust(distances, method = "ward")
 plot(clusterStates)
 
 clusterGroups <- cutree(clusterStates, k = 3)
+```
 
+```{r}
 # Alabama
 Alabama_Cluster <- round(mean(clusterGroups[State_Polls$state == "Alabama"]))
 Alabama_Cluster
@@ -1007,6 +1010,5 @@ Wisconsin_Cluster
 # Wyoming
 Wyoming_Cluster <- round(mean(clusterGroups[State_Polls$state == "Wyoming"]))
 Wyoming_Cluster
-
 ```
 
