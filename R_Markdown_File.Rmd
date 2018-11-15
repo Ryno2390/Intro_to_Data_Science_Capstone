@@ -770,3 +770,31 @@ str(Wyoming)
 
 ```
 
+# "Swing" for the Fences!
+
+It would be very useful to categorize each state according to how likely it is that it would vote for Clinton versus how likely it is to vote for Trump, or - even more importantly - if the state is considered a "toss-up". 
+
+On of the most important jobs of a presidential campaign is to determine where to campaign. Every campaign is constrained by its limited resources (volunteers, money, advertisting, ect.), so each campaign must make strategic decisions about which states to campaign in. 
+
+It does not make sense for a campaign to commit resources to a state that is highly unlikely to vote for its candidate, nor does it make sense for a campaign to do the opposite - i.e. to commit resources to a state that is already highly likely to vote for its candidate. Therefore, the optimal use of limited campaign resources is to devote them to "swing" states - i.e. states that could vote for either the campaign's candidate, or their opponent.
+
+Toward this end, a k-means clustering model would help us in determining which states are considered solidly Clinton, which states are solidly Trump, and - most importantly - which states are swing states. By choosing a k = 3, we subdivide the states into Clinton, Trump, and Swing.
+
+```{r}
+
+State_Polls <- Clean_Data %>%
+  select(state, enddate, pollster, rawpoll_clinton, rawpoll_trump) %>%
+  filter(state != "U.S.") %>%
+  filter(state != "Maine CD-1") %>%
+  filter(state != "Maine CD-2") %>%
+  filter(state != "Nebraska CD-1") %>%
+  filter(state != "Nebraska CD-2") %>%
+  filter(state != "Nebraska CD-3") %>%
+  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump) %>%
+  mutate(enddate = mdy(enddate)) %>%
+  arrange(enddate)
+  
+str(State_Polls)
+  
+```
+
