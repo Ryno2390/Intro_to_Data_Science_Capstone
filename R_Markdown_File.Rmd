@@ -1156,3 +1156,82 @@ Therefore, our recommendation is that the Clinton campaign devote resources to s
 
 # So, How Did We Do?
 
+First, let's examine the results of our swing state analysis. Let us define a swing state as a state that had a +/-5% Clinton margin. Below is a list of these states, as well as Clinton's margin in each state:
+
+1. Michigan (-0.22%) 
+2. New Hampshire (+0.37%)
+3. Pennsylvania (-0.72%)  
+4. Wisconsin (-0.76%) 
+5. Florida (-1.20%)*
+6. Minnesota (+1.52%)
+7. Nevada (+2.42%)*
+8. Maine (+2.96%)
+9. Arizona (-3.55%)*
+10. North Carolina (-3.66%)*
+11. Colorado (+4.91%)
+
+*Indicates that the state was on our original list of swing states.
+
+Next, let's examine the accuracy of our model when it cames to categorizing solidly Clinton states. Below is a list of states that ended up being solid Clinton wins, which we will define as a Clinton margin greater than +5%:
+
+1. District of Columbia (+86.78%)*
+2. Hawaii (+32.18%)*
+3. California (+30.11%)*
+4. Massachusetts (+27.20%)*
+5. Maryland (+26.42%)*
+6. Vermont (+26.41%)*
+7. New York (+22.49%)*
+8. Illinois (+17.06%)*
+9. Washington (+15.71%)*
+10. Rhode Island (+15.51%)*
+12. New Jersey (+14.10%)*
+13. Connecticut (+13.64%)*
+14. Delaware (+11.37%)*
+15. Oregon (+10.98%)*
+16. New Mexico (+8.21%)*
+17. Virginia (+5.32%)*
+
+*Indicates that the state was on our original list of solidly Clinton states
+
+Finally, let's examine the accuracy of our model when it cames to came to categorizing solidly Trump states. Below is a list of states that ened up being solid Trump wins, which we will define as a Clinton margin less than -5%:
+
+1. Wyoming (-46.30%)*
+2. West Virginia (-42.07%)*
+3. Oklahoma (-37.08%)*
+4. North Dakota (-35.73%)*
+5. Idaho (-31.77%)*
+6. Kentucky (-29.84%)*
+7. South Dakota (-29.79%)*
+8. Alabama (-27.73%)*
+9. Arkansas (-26.92%)*
+10. Tennessee (-26.01%)*
+11. Nebraska (-25.05%)*
+12. Kansas (-20.60%)
+13. Montana (-20.42%)*
+14. Louisiana (-19.64%)*
+15. Indiana (-19.17%)
+16. Missouri (-18.64%)
+17. Utah (-18.08%)
+18. Mississippi (-17.83%)*
+19. Alaska (-14.73%)
+20. South Carolina (-14.27%)
+21. Iowa (-9.41%)
+22. Texas (-8.99%)
+23. Ohio (-8.13%)
+24. Georgia (-5.13%)
+
+*Indicates that the state was on our original list of solidly Trump states.
+
+In terms of swing states, we called 4 out of 11 (or a ~36.4% success rate); in terms of solidly Clinton states, we called 17 out of 17 (or a 100% success rate); and in terms of solidly Trump states, we called 14 out of 24 (or a ~58.3%). Overall, we accurately categorized ~67% of the states.
+
+If we had randomly assigned a 1/3 chance of assigning a state either a solidly Clinton, solidly Trump, or swing state status then we would have expected a success rate of 1/3 or 33.33%. Clearly our model was more accurate than this baseline.
+
+Next, let's turn to our final prediction. In the end we accurately predicted the winner of every states except 4 - Michigan, Nevada, Pennsylvania, and Wisconsin - a ~92% accuracy rate. If we compare this a random coin toss, we handily beat this baseline assumption of 50%. 
+
+But note! Of those four states we got wrong, three were on our "at risk" list of states, namely Pennsylvania, Michigan, and Wisconsin. As part of our conservative startegy recommendation we urged the Clinton campaign to dedicate resources to these three states in order to shore up support there and to prevent these states from turning red - especially given her very narrow and extremely tenuous lead in the electoral college.
+
+In one of FiveThirtyEight.com's post 2016 election synposes, Nate Silver discussed this very thing, writing: 
+
+"In fact, Clinton’s Electoral College leads weren’t very robust. And the single biggest reason was because of her relatively weak polling in the Midwest, especially as compared to President Obama four years ago. Because the outcomes in these Midwestern states were highly correlated, having problems in any one of them would mean that Clinton was probably having trouble in the others, as well.
+
+There just aren’t enough electoral votes in swing states elsewhere in the country for a Democrat to survive a Midwestern collapse. Michigan, Wisconsin, Minnesota, Ohio, Iowa and Pennsylvania (which is not a part of the geographic Midwest, but which functions like a Midwestern state politically) together have 80 electoral votes. Lose all of those states, and a Democrat would still lose even with Florida, North Carolina, Colorado, Nevada, Virginia in her column."
