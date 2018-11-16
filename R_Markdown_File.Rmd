@@ -204,572 +204,6 @@ More specifically, each state's total number of electors is equal to the combine
 
 Therefore, to win, an American Presidential candidate must win an absolute majority of 270 electoral votes to become president. Therefore, in order to create a model that accurately predicts who will become president, and NOT who will win the most votes, we need to predict the winner in each state, and allocate each state's electoral votes to the predicted winner of each state. The first candidate to 270 wins!
 
-
-```{r}
-
-# Alabama
-Alabama <- Clean_Data %>% 
-  select(state, enddate, pollster, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Alabama") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Alabama <- Alabama %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Alabama)
-
-# Alaska
-Alaska <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Alaska") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Alaska <- Alaska %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Alaska)
-
-# Arizona
-Arizona <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Arizona") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Arizona <- Arizona %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Arizona)
-
-# Arkansas
-Arkansas <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Arkansas") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Arkansas <- Arkansas %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Arkansas)
-
-# California
-California <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "California") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-California <- California %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(California)
-
-# Colorado
-Colorado <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Colorado") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Colorado <- Colorado %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Colorado)
-
-# Connecticut
-Connecticut <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Connecticut") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Connecticut <- Connecticut %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Connecticut)
-
-# Delaware
-Delaware <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Delaware") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Delaware <- Delaware %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Delaware)
-
-# District_of_Columbia  
-District_of_Columbia <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "District of Columbia") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-District_of_Columbia <- District_of_Columbia %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(District_of_Columbia)
-
-# Florida
-Florida <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Florida") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Florida <- Florida %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Florida)
-
-# Georgia
-Georgia <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Georgia") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Georgia <- Georgia %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Georgia)
-
-# Hawaii
-Hawaii <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Hawaii") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Hawaii <- Hawaii %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Hawaii)
-
-#Idaho
-Idaho <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Idaho") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Idaho <- Idaho %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Idaho)
-
-# Illinois
-Illinois <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Illinois") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Illinois <- Illinois %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Illinois)
-
-# Indiana
-Indiana <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Indiana") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Indiana <- Indiana %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Indiana)
-
-# Iowa
-Iowa <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Iowa") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Iowa <- Iowa %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Iowa)
-
-# Kansas
-Kansas <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Kansas") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Kansas <- Kansas %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Kansas)
-
-# Kentucky
-Kentucky <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Kentucky") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Kentucky <- Kentucky %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Kentucky)
-
-# Louisiana
-Louisiana <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Louisiana") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Louisiana <- Louisiana %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Louisiana)
-
-# Maine
-Maine <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Maine") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Maine <- Maine %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Maine)
-
-# Maryland
-Maryland <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Maryland") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Maryland <- Maryland %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Maryland)
-
-# Massachusetts
-Massachusetts <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Massachusetts") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Massachusetts <- Massachusetts %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Massachusetts)
-
-# Michigan
-Michigan <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Michigan") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Michigan <- Michigan %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Michigan)
-
-# Minnesota
-Minnesota <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Minnesota") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Minnesota <- Minnesota %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Minnesota)
-
-# Mississippi
-Mississippi <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Mississippi") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Mississippi <- Mississippi %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Mississippi)
-
-# Missouri
-Missouri <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Missouri") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Missouri <- Missouri %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Missouri)
-
-# Montana
-Montana <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Montana") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Montana <- Montana %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Montana)
-
-# Nebraska  
-Nebraska <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Nebraska") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Nebraska <- Nebraska %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Nebraska)
-
-# Nevada
-Nevada <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Nevada") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Nevada <- Nevada %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Nevada)
-
-# New_Hampshire
-New_Hampshire <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "New Hampshire") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-New_Hampshire <- New_Hampshire %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(New_Hampshire)
-
-# New_Jersey
-New_Jersey <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "New Jersey") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-New_Jersey <- New_Jersey %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(New_Jersey)
-
-# New_Mexico
-New_Mexico <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "New Mexico") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-New_Mexico <- New_Mexico %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(New_Mexico)
-
-# New_York
-New_York <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "New York") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-New_York <- New_York %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(New_York)
-
-# North_Carolina
-North_Carolina <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "North Carolina") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-North_Carolina <- North_Carolina %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(North_Carolina)
-
-# North_Dakota
-North_Dakota <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "North Dakota") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-North_Dakota <- North_Dakota %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(North_Dakota)
-
-# Ohio
-Ohio <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Ohio") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Ohio <- Ohio %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Ohio)
-
-# Oklahoma
-Oklahoma <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Oklahoma") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Oklahoma <- Oklahoma %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Oklahoma)
-
-# Oregon
-Oregon <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Oregon") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Oregon <- Oregon %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Oregon)
-
-# Pennsylvania
-Pennsylvania <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Pennsylvania") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Pennsylvania <- Pennsylvania %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Pennsylvania)
-
-# Rhode_Island
-Rhode_Island <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Rhode Island") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Rhode_Island <- Rhode_Island %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Rhode_Island)
-
-# South_Carolina
-South_Carolina <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "South Carolina") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-South_Carolina <- South_Carolina %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(South_Carolina)
-
-# South_Dakota
-South_Dakota <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "South Dakota") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-South_Dakota <- South_Dakota %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(South_Dakota)
-
-# Tennessee
-Tennessee <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Tennessee") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Tennessee <- Tennessee %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Tennessee)
-
-# Texas
-Texas <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Texas") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Texas <- Texas %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Texas)
-
-# Utah
-Utah <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Utah") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Utah <- Utah %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Utah)
-
-# Vermont
-Vermont <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Vermont") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Vermont <- Vermont %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Vermont)
-
-# Virginia
-Virginia <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Virginia") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Virginia <- Virginia %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Virginia)
-
-# Washington
-Washington <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Washington") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Washington <- Washington %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Washington)
-
-# West_Virginia
-West_Virginia <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "West Virginia") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-West_Virginia <- West_Virginia %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(West_Virginia)
-
-# Wisconsin
-Wisconsin <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Wisconsin") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Wisconsin <- Wisconsin %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Wisconsin)
-
-# Wyoming
-Wyoming <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
-  filter(state == "Wyoming") %>%
-  mutate(enddate = mdy(enddate)) %>%
-  arrange(enddate)
-
-Wyoming <- Wyoming %>%
-  mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(Wyoming)
-
-```
-
 # "Swing" for the Fences!
 
 It would be very useful to categorize each state according to how likely it is that it would vote for Clinton versus how likely it is to vote for Trump, or - even more importantly - if the state is considered a "toss-up". 
@@ -781,7 +215,7 @@ It does not make sense for a campaign to commit resources to a state that is hig
 Toward this end, a k-means clustering model would help us in determining which states are considered solidly Clinton, which states are solidly Trump, and - most importantly - which states are swing states. By choosing a k = 3, we subdivide the states into Clinton, Trump, and Swing.
 
 ```{r}
-State_Polls <- Clean_Data %>%
+State_Polls_Swing <- Clean_Data %>%
   select(state, pollster, rawpoll_clinton, rawpoll_trump) %>%
   filter(state != "U.S.") %>%
   filter(state != "Maine CD-1") %>%
@@ -790,225 +224,439 @@ State_Polls <- Clean_Data %>%
   filter(state != "Nebraska CD-2") %>%
   filter(state != "Nebraska CD-3") %>%
   mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(State_Polls)
+str(State_Polls_Swing)
 ```
 
 ```{r}
-State_Polls$rawpoll_clinton = NULL
-State_Polls$rawpoll_trump = NULL
-State_Polls <- unique(State_Polls)
-str(State_Polls)
+State_Polls_Swing$rawpoll_clinton = NULL
+State_Polls_Swing$rawpoll_trump = NULL
+State_Polls_Swing <- unique(State_Polls)
 
-distances <- dist(State_Polls, method = "euclidean")
-clusterStates <- hclust(distances, method = "ward")
-plot(clusterStates)
+distances_Swing <- dist(State_Polls_Swing, method = "euclidean")
+clusterStates_Swing <- hclust(distances_Swing, method = "ward")
+plot(clusterStates_Swing)
 
-clusterGroups <- cutree(clusterStates, k = 3)
+clusterGroups_Swing <- cutree(clusterStates_Swing, k = 3)
 ```
 
 ```{r}
 # Alabama
-Alabama_Cluster <- round(mean(clusterGroups[State_Polls$state == "Alabama"]))
-Alabama_Cluster
+Alabama_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Alabama"]))
+Alabama_Cluster_Swing
 
 # Alaska
-Alaska_Cluster <- round(mean(clusterGroups[State_Polls$state == "Alaska"]))
-Alaska_Cluster
+Alaska_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Alaska"]))
+Alaska_Cluster_Swing
 
 # Arizona
-Arizona_Cluster <- round(mean(clusterGroups[State_Polls$state == "Arizona"]))
-Arizona_Cluster
+Arizona_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Arizona"]))
+Arizona_Cluster_Swing
 
 # Arkansas
-Arkansas_Cluster <- round(mean(clusterGroups[State_Polls$state == "Arkansas"]))
-Arkansas_Cluster
+Arkansas_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Arkansas"]))
+Arkansas_Cluster_Swing
 
 # California
-California_Cluster <- round(mean(clusterGroups[State_Polls$state == "California"]))
-California_Cluster
+California_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls$state == "California"]))
+California_Cluster_Swing
 
 # Colorado
-Colorado_Cluster <- round(mean(clusterGroups[State_Polls$state == "Colorado"]))
-Colorado_Cluster
+Colorado_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Colorado"]))
+Colorado_Cluster_Swing
 
 # Connecticut
-Connecticut_Cluster <- round(mean(clusterGroups[State_Polls$state == "Connecticut"]))
-Connecticut_Cluster
+Connecticut_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Connecticut"]))
+Connecticut_Cluster_Swing
 
 # District of Columbia
-District_of_Columbia_Cluster <- round(mean(clusterGroups[State_Polls$state == "District of Columbia"]))
-District_of_Columbia_Cluster
+District_of_Columbia_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "District of Columbia"]))
+District_of_Columbia_Cluster_Swing
 
 # Delaware
-Delaware_Cluster <- round(mean(clusterGroups[State_Polls$state == "Delaware"]))
-Delaware_Cluster
+Delaware_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Delaware"]))
+Delaware_Cluster_Swing
 
 # Florida
-Florida_Cluster <- round(mean(clusterGroups[State_Polls$state == "Florida"]))
-Florida_Cluster
+Florida_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Florida"]))
+Florida_Cluster_Swing
 
 # Georgia
-Georgia_Cluster <- round(mean(clusterGroups[State_Polls$state == "Georgia"]))
-Georgia_Cluster
+Georgia_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Georgia"]))
+Georgia_Cluster_Swing
 
 # Hawaii
-Hawaii_Cluster <- round(mean(clusterGroups[State_Polls$state == "Hawaii"]))
-Hawaii_Cluster
+Hawaii_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Hawaii"]))
+Hawaii_Cluster_Swing
 
 # Idaho
-Idaho_Cluster <- round(mean(clusterGroups[State_Polls$state == "Idaho"]))
-Idaho_Cluster
+Idaho_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Idaho"]))
+Idaho_Cluster_Swing
 
 # Illinois
-Illinois_Cluster <- round(mean(clusterGroups[State_Polls$state == "Illinois"]))
-Illinois_Cluster
+Illinois_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Illinois"]))
+Illinois_Cluster_Swing
 
 # Indiana
-Indiana_Cluster <- round(mean(clusterGroups[State_Polls$state == "Indiana"]))
-Indiana_Cluster
+Indiana_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Indiana"]))
+Indiana_Cluster_Swing
 
 # Iowa
-Iowa_Cluster <- round(mean(clusterGroups[State_Polls$state == "Iowa"]))
-Iowa_Cluster
+Iowa_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Iowa"]))
+Iowa_Cluster_Swing
 
 # Kansas
-Kansas_Cluster <- round(mean(clusterGroups[State_Polls$state == "Kansas"]))
-Kansas_Cluster
+Kansas_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Kansas"]))
+Kansas_Cluster_Swing
 
 # Kentucky
-Kentucky_Cluster <- round(mean(clusterGroups[State_Polls$state == "Kentucky"]))
-Kentucky_Cluster
+Kentucky_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Kentucky"]))
+Kentucky_Cluster_Swing
 
 # Louisiana
-Louisiana_Cluster <- round(mean(clusterGroups[State_Polls$state == "Louisiana"]))
-Louisiana_Cluster
+Louisiana_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Louisiana"]))
+Louisiana_Cluster_Swing
 
 # Maine
-Maine_Cluster <- round(mean(clusterGroups[State_Polls$state == "Maine"]))
-Maine_Cluster
+Maine_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Maine"]))
+Maine_Cluster_Swing
 
 # Maryland
-Maryland_Cluster <- round(mean(clusterGroups[State_Polls$state == "Maryland"]))
-Maryland_Cluster
+Maryland_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Maryland"]))
+Maryland_Cluster_Swing
 
 # Massachusetts
-Massachusetts_Cluster <- round(mean(clusterGroups[State_Polls$state == "Massachusetts"]))
-Massachusetts_Cluster
+Massachusetts_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Massachusetts"]))
+Massachusetts_Cluster_Swing
 
 # Michigan
-Michigan_Cluster <- round(mean(clusterGroups[State_Polls$state == "Michigan"]))
-Michigan_Cluster
+Michigan_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Michigan"]))
+Michigan_Cluster_Swing
 
 # Minnesota
-Minnesota_Cluster <- round(mean(clusterGroups[State_Polls$state == "Minnesota"]))
-Minnesota_Cluster
+Minnesota_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Minnesota"]))
+Minnesota_Cluster_Swing
 
 # Mississippi
-Mississippi_Cluster <- round(mean(clusterGroups[State_Polls$state == "Mississippi"]))
-Mississippi_Cluster
+Mississippi_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Mississippi"]))
+Mississippi_Cluster_Swing
 
 # Missouri
-Missouri_Cluster <- round(mean(clusterGroups[State_Polls$state == "Missouri"]))
-Missouri_Cluster
+Missouri_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Missouri"]))
+Missouri_Cluster_Swing
 
 # Montana
-Montana_Cluster <- round(mean(clusterGroups[State_Polls$state == "Montana"]))
-Montana_Cluster
+Montana_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Montana"]))
+Montana_Cluster_Swing
 
 # Nebraska
-Nebraska_Cluster <- round(mean(clusterGroups[State_Polls$state == "Nebraska"]))
-Nebraska_Cluster
+Nebraska_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Nebraska"]))
+Nebraska_Cluster_Swing
 
 # Nevada
-Nevada_Cluster <- round(mean(clusterGroups[State_Polls$state == "Nevada"]))
-Nevada_Cluster
+Nevada_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Nevada"]))
+Nevada_Cluster_Swing
 
 # New Hampshire
-New_Hampshire_Cluster <- round(mean(clusterGroups[State_Polls$state == "New Hampshire"]))
-New_Hampshire_Cluster
+New_Hampshire_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "New Hampshire"]))
+New_Hampshire_Cluster_Swing
 
 # New Jersey
-New_Jersey_Cluster <- round(mean(clusterGroups[State_Polls$state == "New Jersey"]))
-New_Jersey_Cluster
+New_Jersey_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "New Jersey"]))
+New_Jersey_Cluster_Swing
 
 # New Mexico
-New_Mexico_Cluster <- round(mean(clusterGroups[State_Polls$state == "New Mexico"]))
-New_Mexico_Cluster
+New_Mexico_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "New Mexico"]))
+New_Mexico_Cluster_Swing
 
 # New York
-New_York_Cluster <- round(mean(clusterGroups[State_Polls$state == "New York"]))
-New_York_Cluster
+New_York_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "New York"]))
+New_York_Cluster_Swing
 
 # North Carolina
-North_Carolina_Cluster <- round(mean(clusterGroups[State_Polls$state == "North Carolina"]))
-North_Carolina_Cluster
+North_Carolina_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "North Carolina"]))
+North_Carolina_Cluster_Swing
 
 # North Dakota
-North_Dakota_Cluster <- round(mean(clusterGroups[State_Polls$state == "North Dakota"]))
-North_Dakota_Cluster
+North_Dakota_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "North Dakota"]))
+North_Dakota_Cluster_Swing
 
 # Ohio
-Ohio_Cluster <- round(mean(clusterGroups[State_Polls$state == "Ohio"]))
-Ohio_Cluster
+Ohio_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Ohio"]))
+Ohio_Cluster_Swing
 
 # Oklahoma
-Oklahoma_Cluster <- round(mean(clusterGroups[State_Polls$state == "Oklahoma"]))
-Oklahoma_Cluster
+Oklahoma_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Oklahoma"]))
+Oklahoma_Cluster_Swing
 
 # Oregon
-Oregon_Cluster <- round(mean(clusterGroups[State_Polls$state == "Oregon"]))
-Oregon_Cluster
+Oregon_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Oregon"]))
+Oregon_Cluster_Swing
 
 # Pennsylvania
-Pennsylvania_Cluster <- round(mean(clusterGroups[State_Polls$state == "Pennsylvania"]))
-Pennsylvania_Cluster
+Pennsylvania_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Pennsylvania"]))
+Pennsylvania_Cluster_Swing
 
 # Rhode Island
-Rhode_Island_Cluster <- round(mean(clusterGroups[State_Polls$state == "Rhode Island"]))
-Rhode_Island_Cluster
+Rhode_Island_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Rhode Island"]))
+Rhode_Island_Cluster_Swing
 
 # South Carolina
-South_Carolina_Cluster <- round(mean(clusterGroups[State_Polls$state == "South Carolina"]))
-South_Carolina_Cluster
+South_Carolina_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "South Carolina"]))
+South_Carolina_Cluster_Swing
 
 # South Dakota
-South_Dakota_Cluster <- round(mean(clusterGroups[State_Polls$state == "South Dakota"]))
-South_Dakota_Cluster
+South_Dakota_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "South Dakota"]))
+South_Dakota_Cluster_Swing
 
 # Tennessee
-Tennessee_Cluster <- round(mean(clusterGroups[State_Polls$state == "Tennessee"]))
-Tennessee_Cluster
+Tennessee_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Tennessee"]))
+Tennessee_Cluster_Swing
 
 # Texas
-Texas_Cluster <- round(mean(clusterGroups[State_Polls$state == "Texas"]))
-Texas_Cluster
+Texas_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Texas"]))
+Texas_Cluster_Swing
 
 # Utah
-Utah_Cluster <- round(mean(clusterGroups[State_Polls$state == "Utah"]))
-Utah_Cluster
+Utah_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Utah"]))
+Utah_Cluster_Swing
 
 # Vermont
-Vermont_Cluster <- round(mean(clusterGroups[State_Polls$state == "Vermont"]))
-Vermont_Cluster
+Vermont_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Vermont"]))
+Vermont_Cluster_Swing
 
 # Virginia
-Virginia_Cluster <- round(mean(clusterGroups[State_Polls$state == "Virginia"]))
-Virginia_Cluster
+Virginia_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Virginia"]))
+Virginia_Cluster_Swing
 
 # Washington
-Washington_Cluster <- round(mean(clusterGroups[State_Polls$state == "Washington"]))
-Washington_Cluster
+Washington_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Washington"]))
+Washington_Cluster_Swing
 
 # West Virginia
-West_Virginia_Cluster <- round(mean(clusterGroups[State_Polls$state == "West Virginia"]))
-West_Virginia_Cluster
+West_Virginia_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "West Virginia"]))
+West_Virginia_Cluster_Swing
 
 # Wisconsin
-Wisconsin_Cluster <- round(mean(clusterGroups[State_Polls$state == "Wisconsin"]))
-Wisconsin_Cluster
+Wisconsin_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Wisconsin"]))
+Wisconsin_Cluster_Swing
 
 # Wyoming
-Wyoming_Cluster <- round(mean(clusterGroups[State_Polls$state == "Wyoming"]))
-Wyoming_Cluster
+Wyoming_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Wyoming"]))
+Wyoming_Cluster_Swing
+```
+
+```{r}
+State_Polls_Final <- State_Polls_Swing
+
+distances_Final <- dist(State_Polls_Final, method = "euclidean")
+clusterStates_Final <- hclust(distances_Final, method = "ward")
+
+clusterGroups_Final <- cutree(clusterStates_Final, k = 2)
+```
+
+```{r}
+# Alabama
+Alabama_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Alabama"]))
+Alabama_Cluster_Final
+
+# Alaska
+Alaska_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Alaska"]))
+Alaska_Cluster_Final
+
+# Arizona
+Arizona_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Arizona"]))
+Arizona_Cluster_Final
+
+# Arkansas
+Arkansas_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Arkansas"]))
+Arkansas_Cluster_Final
+
+# California
+California_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls$state == "California"]))
+California_Cluster_Final
+
+# Colorado
+Colorado_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Colorado"]))
+Colorado_Cluster_Final
+
+# Connecticut
+Connecticut_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Connecticut"]))
+Connecticut_Cluster_Final
+
+# District of Columbia
+District_of_Columbia_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "District of Columbia"]))
+District_of_Columbia_Cluster_Final
+
+# Delaware
+Delaware_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Delaware"]))
+Delaware_Cluster_Final
+
+# Florida
+Florida_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Florida"]))
+Florida_Cluster_Final
+
+# Georgia
+Georgia_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Georgia"]))
+Georgia_Cluster_Final
+
+# Hawaii
+Hawaii_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Hawaii"]))
+Hawaii_Cluster_Final
+
+# Idaho
+Idaho_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Idaho"]))
+Idaho_Cluster_Final
+
+# Illinois
+Illinois_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Illinois"]))
+Illinois_Cluster_Final
+
+# Indiana
+Indiana_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Indiana"]))
+Indiana_Cluster_Final
+
+# Iowa
+Iowa_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Iowa"]))
+Iowa_Cluster_Final
+
+# Kansas
+Kansas_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Kansas"]))
+Kansas_Cluster_Final
+
+# Kentucky
+Kentucky_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Kentucky"]))
+Kentucky_Cluster_Final
+
+# Louisiana
+Louisiana_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Louisiana"]))
+Louisiana_Cluster_Final
+
+# Maine
+Maine_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Maine"]))
+Maine_Cluster_Final
+
+# Maryland
+Maryland_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Maryland"]))
+Maryland_Cluster_Final
+
+# Massachusetts
+Massachusetts_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Massachusetts"]))
+Massachusetts_Cluster_Final
+
+# Michigan
+Michigan_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Michigan"]))
+Michigan_Cluster_Final
+
+# Minnesota
+Minnesota_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Minnesota"]))
+Minnesota_Cluster_Final
+
+# Mississippi
+Mississippi_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Mississippi"]))
+Mississippi_Cluster_Final
+
+# Missouri
+Missouri_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Missouri"]))
+Missouri_Cluster_Final
+
+# Montana
+Montana_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Montana"]))
+Montana_Cluster_Final
+
+# Nebraska
+Nebraska_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Nebraska"]))
+Nebraska_Cluster_Final
+
+# Nevada
+Nevada_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Nevada"]))
+Nevada_Cluster_Final
+
+# New Hampshire
+New_Hampshire_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "New Hampshire"]))
+New_Hampshire_Cluster_Final
+
+# New Jersey
+New_Jersey_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "New Jersey"]))
+New_Jersey_Cluster_Final
+
+# New Mexico
+New_Mexico_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "New Mexico"]))
+New_Mexico_Cluster_Final
+
+# New York
+New_York_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "New York"]))
+New_York_Cluster_Final
+
+# North Carolina
+North_Carolina_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "North Carolina"]))
+North_Carolina_Cluster_Final
+
+# North Dakota
+North_Dakota_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "North Dakota"]))
+North_Dakota_Cluster_Final
+
+# Ohio
+Ohio_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Ohio"]))
+Ohio_Cluster_Final
+
+# Oklahoma
+Oklahoma_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Oklahoma"]))
+Oklahoma_Cluster_Final
+
+# Oregon
+Oregon_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Oregon"]))
+Oregon_Cluster_Final
+
+# Pennsylvania
+Pennsylvania_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Pennsylvania"]))
+Pennsylvania_Cluster_Final
+
+# Rhode Island
+Rhode_Island_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Rhode Island"]))
+Rhode_Island_Cluster_Final
+
+# South Carolina
+South_Carolina_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "South Carolina"]))
+South_Carolina_Cluster_Final
+
+# South Dakota
+South_Dakota_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "South Dakota"]))
+South_Dakota_Cluster_Final
+
+# Tennessee
+Tennessee_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Tennessee"]))
+Tennessee_Cluster_Final
+
+# Texas
+Texas_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Texas"]))
+Texas_Cluster_Final
+
+# Utah
+Utah_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Utah"]))
+Utah_Cluster_Final
+
+# Vermont
+Vermont_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Vermont"]))
+Vermont_Cluster_Final
+
+# Virginia
+Virginia_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Virginia"]))
+Virginia_Cluster_Final
+
+# Washington
+Washington_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Washington"]))
+Washington_Cluster_Final
+
+# West Virginia
+West_Virginia_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "West Virginia"]))
+West_Virginia_Cluster_Final
+
+# Wisconsin
+Wisconsin_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Wisconsin"]))
+Wisconsin_Cluster_Final
+
+# Wyoming
+Wyoming_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state == "Wyoming"]))
+Wyoming_Cluster_Final
 ```
 
