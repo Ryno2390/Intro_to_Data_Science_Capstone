@@ -515,9 +515,9 @@ Wyoming_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state 
 Wyoming_Cluster_Swing
 ```
 
-If we then assign electoral votes to each candidate based on the states that are solidly Trump leaning or Clinton leaning we arrive at the following results (along with the electoral votes associated with each state):
+If we then assign electoral votes to each candidate based on the states that are solidly Trump or solidly Clinton we arrive at the following results (along with the electoral votes associated with each state):
 
-## Clinton Leaning States
+## Solidly Clinton States
 
 1. California (55)
 2. Colorado (9)
@@ -545,7 +545,7 @@ If we then assign electoral votes to each candidate based on the states that are
 
 Total Electoral Votes: 273
 
-## Trump Leaning States
+## Solidly Trump States
 
 1. Alabama (9)
 2. Arkansas (6)
@@ -702,7 +702,11 @@ We have reached our first recommendation for the Clinton campaign: based on the 
 
 # Great! But Who Will Win?
 
+What is elegant and, most important, simple about our k-means clustering model is that we can dial up or down the k-value depending on what question we want to answer. We answered the swing state question by choosing a k-value of 3, but if we want to answer the question of who will win the election we will need a k-value of 2.
 
+By choosing a k-value of 2, we split the decision into a binary: either Clinton wins a given state or she loses; 1 or 2. By simply modifying our k-value we can rerun our machine learning model to determine a winner in each state and make a final prediction about who will win the election. 
+
+To do so we will repeat the process we followed in or swing state model, but set k = 2 instead of 3.
 
 ```{r}
 State_Polls_Final <- State_Polls_Swing
@@ -712,6 +716,8 @@ clusterStates_Final <- hclust(distances_Final, method = "ward")
 
 clusterGroups_Final <- cutree(clusterStates_Final, k = 2)
 ```
+
+Let's take a look at each state's predicted result.
 
 ```{r}
 # Alabama
@@ -919,3 +925,231 @@ Wyoming_Cluster_Final <- round(mean(clusterGroups_Final[State_Polls_Final$state 
 Wyoming_Cluster_Final
 ```
 
+If we then assign electoral votes to each candidate based on the predicted state outcome we arrive at the following results (along with the electoral votes associated with each state):
+
+## Clinton Wins
+
+1. California (55)
+2. Colorado (9)
+3. Connecticut (7)
+4. Delaware (3)
+5. District of Columbia (3)
+6. Hawaii (4)
+7. Illinois (20)
+8. Maine (4)
+9. Maryland (10)
+10. Massachusetts (11)
+11. Michigan (16)
+12. Minnesota (10)
+13. New Hampshire (4)
+14. New Jersey (14)
+15. New Mexico (5)
+16. New York (29)
+17. Oregon (7)
+18. Pennsylvania (20)
+19. Rhode Island (4)
+20. Vermont (3)
+21. Virginia (13)
+22. Washington (12)
+23. Wisconsin (10)
+
+Total Electoral Votes: 273
+
+## Trump Wins
+
+1. Alabama (9)
+2. Alaska (3)
+3. Arizona (11)
+4. Arkansas (6)
+5. Florida (29)
+6. Georgia (16)
+7. Idaho (4)
+8. Indiana (11)
+9. Iowa (6)
+10. Kansas (6)
+11. Kentucky (8)
+12. Louisiana (8)
+13. Mississippi (6)
+14. Missouri (10)
+15. Montana (3)
+16. Nebraska (5)
+17. Nevada (6)
+18. North Carolina (15)
+19. North Dakota (3)
+20. Ohio (18)
+21. Oklahoma (7)
+22. South Carolina (9)
+23. South Dakota (3)
+24. Tennessee (11)
+25. Texas (38)
+26. Utah (6)
+27. West Virginia (5)
+28. Wyoming (3)
+
+Total Electoral Votes: 265
+
+# Defenses Win Championships
+
+What is fascinating about the final results of the model is that the list of Clinton states did not change. Though Clinton's coalition of states is stable, the fact that Trump ran the board on the swing states should worry the Clinton the campaign.
+
+This indicates two grand strategies that Clinton could adopt:
+
+## 1. Play Defense/Conservative Strategy: Clinton should shore up her base in those states most likely to vote for her. This may not lead to a potential electoral blow-out but it would be the stategy most likely to lead to victory. 
+
+If clinton were to adopt this strategy it would be important for her campaign to know which states in her coalition are most likely to defect. She should then devote campaign resources to these at-risk states in order to shore up her likelihood of reaching 270 electoral votes.
+
+Let's take a look at the Clinton states' unrounded mean cluster group scores to determine which states are most at risk.
+
+```{r}
+# California
+California_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "California"])
+California_Cluster_Risk
+
+# Colorado
+Colorado_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Colorado"])
+Colorado_Cluster_Risk
+
+# Connecticut
+Connecticut_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Connecticut"])
+Connecticut_Cluster_Risk
+
+# Delaware
+Delaware_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Delaware"])
+Delaware_Cluster_Risk
+
+# District_of_Columbia
+District_of_Columbia_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "District of Columbia"])
+District_of_Columbia_Cluster_Risk
+
+# Hawaii
+Hawaii_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Hawaii"])
+Hawaii_Cluster_Risk
+
+# Illinois
+Illinois_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Illinois"])
+Illinois_Cluster_Risk
+
+# Maine
+Maine_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Maine"])
+Maine_Cluster_Risk
+
+# Maryland
+Maryland_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Maryland"])
+Maryland_Cluster_Risk
+
+# Massachusetts
+Massachusetts_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Massachusetts"])
+Massachusetts_Cluster_Risk
+
+# Michigan
+Michigan_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Michigan"])
+Michigan_Cluster_Risk
+
+# Minnesota
+Minnesota_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Minnesota"])
+Minnesota_Cluster_Risk
+
+# New Hampshire
+New_Hampshire_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "New Hampshire"])
+New_Hampshire_Cluster_Risk
+
+# New Jersey
+New_Jersey_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "New Jersey"])
+New_Jersey_Cluster_Risk
+
+# New Mexico
+New_Mexico_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "New Mexico"])
+New_Mexico_Cluster_Risk
+
+# New York
+New_York_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "New York"])
+New_York_Cluster_Risk
+
+# Oregon
+Oregon_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Oregon"])
+Oregon_Cluster_Risk
+
+# Pennsylvania
+Pennsylvania_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Pennsylvania"])
+Pennsylvania_Cluster_Risk
+
+# Rhode Island
+Rhode_Island_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Rhode Island"])
+Rhode_Island_Cluster_Risk
+
+# Vermont
+Vermont_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Vermont"])
+Vermont_Cluster_Risk
+
+# Virginia
+Virginia_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Virginia"])
+Virginia_Cluster_Risk
+
+# Washington
+Washington_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Washington"])
+Washington_Cluster_Risk
+
+# Wisconsin
+Wisconsin_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "Wisconsin"])
+Wisconsin_Cluster_Risk
+```
+
+Let's take a look at these states in order of most at risk to least at risk for Clinton (along with their electoral votes):
+
+1. Pennsylvania (20)*
+2. Michigan (16)*
+3. Colorado (9)*
+4. New Hampshire (4)*
+5. Maine (4)*
+6. Wisconsin (10)*
+7. New Mexico (5)
+8. Virginia (13)
+9. Delaware (3)
+10. Oregon (7)
+11. New Jersey (14)
+12. Rhode Island (4)
+13. Minnesota (10)
+14. Washington (12)
+15. Illinois (20)
+16. California (55)
+17. Connecticut (7)
+18. District of Columbia (3)
+19. Hawaii (4)
+20. Maryland (10)
+21. Massachusetts (11)
+22. New York (29)
+23. Vermont (3)
+
+If we look only at those states with a risk score of unrounded mean cluster group score of 1.3 or higher (which I have placed an * next to, above), and order the list from greatest electoral votes to least, we get the following "at risk" list (along with their electoral votes):
+
+1. Pennsylvania (20)
+2. Michigan (16)
+3. Wisconsin (10)
+4. Colorado (9)
+5. New Hampshire (4)
+6. Maine (4)
+
+Total Electoral Votes: 63
+
+If the Clinton campaign focuses on these states - particularly Pennsylvania, Michigan, and Wisconsin - Clinton will most likely have a wall strong enough to defend against any encroachment by the Trump campaign. Though Clinton would win by a narrow electoral vote margin (8 electoral votes to be specific) her chances of winning would be more assured. 
+
+## 2. Play Offense/Risky Strategy: Clinton should make a play for the swing states, dedicating resources to states with greatest number of electoral votes. Though Clinton may lose some blue states she may make a net gain by winning larger swing states.
+
+This strategy seeks to maximize electoral votes at greater electoral risk. This strategy isn't always irrational. If the Clinton campaign feels strong in the most at risk states, making a push into large swing states would result in a larger electoral vote margin, and may give the Clinton greater political capital once in office. 
+
+If the Clinton campaign chooses this strategy, it makes the most sense to make a play for states with the largest number of electoral votes. Once again, these states include:
+
+1. Florida (29)
+2. Ohio (18)
+3. North Carolina (15)
+4. Arizona (11)
+5. Iowa (6)
+6. Nevada (6)
+
+Total Electoral Votes: 85
+
+For example, if Clinton were to lose all of her "at risk" states but gained all of the largest swing states, she would net gain 22 electoral votes, bringing her total up to 295 from 273. Perhaps this would change the perceptions of Congress of her political capital - shifting the narrative from barely eeking our a win to having won comfortably.
+
+However, if we take into account the hypothetical role of this analysis is simply to get our candidate elected, then the calculus of our recommendation changes. If the goal is purely to get the requisite number of electoral votes with the highest probability of success, then the only strategy that does this is the conservative strategy.
+
+Therefore, our recommendation is that the Clinton campaign devote resources to shoring up her "at risk" states and to adopt a more defensive strategy.
