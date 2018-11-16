@@ -18,7 +18,18 @@ Analyze the voting patterns of the US during the 2016 Presidential election - wi
 
 ### Who is your client and why do they care about this problem? In other words, what will your client DO or DECIDE based on your analysis that they wouldn’t have otherwise?
 
-Generally speakig, lobbyists seek to "back a winning horse" - i.e. they intend to contribute as much money as possible, given their contribution budget constaint, to the winning candidate. Only the winning candidate gains political power, therefore lobbysts do not wish to diluate the power of their contibution budget by donating to multiple candidates in the same race. An accurate prediction model would enable lobbyst clients to make more informed donation decisions. 
+Presidential campaigns are big business. The final price tag for the 2016 election was $6.5 billion for the presidential and congressional elections combined, according to campaign finance watchdog OpenSecrets.org (https://www.opensecrets.org/news/2017/04/election-2016-trump-fewer-donors-provided-more-of-the-cash/), with the presidential race, alone, being responsible for $2.4 billion.
+
+Needless to say, there are a lot of interested parties when it comes to the outcome of elections - particularly for the highest position in the U.S. government. Perhaps the mots interested party being that of the campaigns themselves. Of the $2.4 billion spend on the presidential campaigns in 2016, $398 million was spent by the Trump campaign, and a whopping $768 million was spent by the Clinton campaign.
+
+For this project I will be assuming that my main client is the Clinton campaign, which is highly interested in a model that could not only predict who would win the election (based on readily available polling data), but also how to proceed strategically - specifically, which states to campaign in and which to avoid.
+
+This type of information is valuable to campaigns because campaign face a budget constraint. Though the Clinton campaign spent $768 million during the 2016 campaign, the Clinton campaigns budget was not infinite: the campaign had to make strategic decisions about how to optimally allocate the limited resources it had.
+
+My model will be designed to provide answers to two basic questions:
+
+1. What states should the Clinton campaign focus on (i.e. to determine which states are "swing" states)?
+2. Which candidate is most likely to win - Clinton or Trump?
 
 ### What data are you going to use for this? How will you acquire this data?
 
@@ -26,16 +37,18 @@ I will use FiveThirtyEight.com's data which is readily available through Kaggle 
 
 ### In brief, outline your approach to solving this problem (knowing that this might change later).
 
-My approach will bet to understand FiveThirtyEight's model and to simplify the model as much as possible to conform with the goals of this course. I will then use the data to analyze regional voting patterns, with a stretch goal of creating a simplified model that can incorporate polling data to update it's prediction of who will win the election.
+My approach will be to understand FiveThirtyEight's model and to simplify the model as much as possible, using the skills - particularly machine learning - I learned in this course. I will then use the data to analyze state-wide voting patterns, with a goal of creating a model that can incorporate new polling data to update it's classification of swing states as well as predict of who will win the election.
 
 ### What are your deliverables? Typically, this would include code, along with a paper and/or a slide deck.
 
 The deliverables will include:
 
 + A walkthrough of the model using RMarkdown
-+ A detailed summary paper that analyzes regional voting trends as well as a prediction of who would win
++ A detailed summary paper intended for the senior members of the campaign, containing recommednations for campaign allocation of resources and predictions.
 
 # Upload data into RStudio
+
+The first step is to upload FiveThirtyEight's election data to RStudio.
 
 ```{r}
 library(readr)
@@ -45,7 +58,7 @@ Raw_Data <- read_csv("presidential_polls.csv")
 str(Raw_Data)
 ```
 
-There are many superfluous columns in this data set that are not useful for this project. These include:
+There are many superfluous columns in this data set that are not pertinent to this project. Let's see if we can hone and clean our data set. We can exclude the following variables from our final data set (I have also provided a quick explanation as to why I am excluding a particular variable):
 
 + cycle - all values are the same (i.e. set to "2016")
 
@@ -57,41 +70,41 @@ There are many superfluous columns in this data set that are not useful for this
 
 + forecastdate - all values are the same (i.e. set to "11/1/2016")
 
-+ rawpoll_johnson - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton or Trump) and therefore will exclude data for both Johnson and McMullin
++ rawpoll_johnson - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton and Trump) and therefore will exclude data for both Johnson and McMullin
 
-+ rawpoll_mcmullin - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton or Trump) and therefore will exclude data for both Johnson and McMullin
++ rawpoll_mcmullin - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton and Trump) and therefore will exclude data for both Johnson and McMullin
 
-+ adjpoll_johnson - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton or Trump) and therefore will exclude data for both Johnson and McMullin
++ adjpoll_johnson - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton and Trump) and therefore will exclude data for both Johnson and McMullin
 
-+ adjpoll_mcmullin - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton or Trump) and therefore will exclude data for both Johnson and McMullin
++ adjpoll_mcmullin - my model will only compare voting patterns between the final two presidential candidates (i.e. Clinton and Trump) and therefore will exclude data for both Johnson and McMullin
 
 + multiversions - this field denotes if there were multiple versions of the same poll. My analysis will not make such a distinction and will simply take each poll at face value.
 
 + url - links to the original poll data location.
 
-+ poll_id - unique identifier used by FiveThirtyEight cross-over use in other models.
++ poll_id - unique identifier used by FiveThirtyEight to identify polls in other models.
 
 + question_id - unique identifer to determine the form of the poll question. I do not have access to the reference table for these questions so this will not be included in our data set.
 
-+ createddate - date the data was inputted to the model. Irrelevant for my data set.
++ createddate - date the data was inputted to the FiveThirtyEight's model, which is irrelevant for my data set.
 
-+ timestamp - date the model was rerun incorporating all the data up to that point. The model was last updated November 1st, 2018 and is irrelavnt to my data set.
++ timestamp - date the model was rerun incorporating all the data up to that point. The model was last updated November 1st, 2018 and is irrelevant to my data set.
 
-This leaves the following fields in my data set:
+This leaves the following fields in my final data set:
 
 + state - the state from which the poll was taken (the value "U.S." signifies a national poll)
 
-+ startdate - the date for which the poll was begun
++ startdate - the date on which the poll was begun
 
-+ enddate - the date for which the poll was ended
++ enddate - the date on which the poll was ended
 
 + pollster - the organization that conducted the poll
 
-+ grade - the accuraacy rating of the polling organization, as determined by FiveThirtyEight by analyzing past predictions and comparing them to actual results.
++ grade - the accuraacy rating of the polling organization. FiveThirtyEight determines this grade by analyzing a pollster's past predictions and comparing them to actual results. The more accurate the pollster the higher the grade.
 
 + samplesize - the size of the sample for the poll (i.e. the "n" value)
 
-+ population - ???
++ population - a unique regional identifier that FiveThirtyEight uses in their model. I may or may not use this variable so I will tentatively keep it in my final data set.
 
 + poll_wt - the weight assigned to each poll predicated on the polling organization's grade
 
@@ -105,6 +118,8 @@ This leaves the following fields in my data set:
 
 ### Remove superfluous columns from the data set to produce a clean data set
 
+Now that I have chosen the final variables for my data set the next step is to exclude the superflous variables. We can do this easily using the dplyr package.
+
 ```{r}
 library(dplyr)
 
@@ -113,24 +128,35 @@ Clean_Data <- Raw_Data %>% select(-c(cycle:forecastdate, rawpoll_johnson, rawpol
 str(Clean_Data)
 ```
 
-A quick overview of the "state" column reveals that there are really two different types of polls: purely state polls (which include speocific congressional districts, as well as state-wide polls) and national polls. To get our bearings I will apply some statistics to the purely national polls at first; we will analyze regiaonal variations in polling later.
+A quick overview of the "state" column reveals that there are really two different types of polls: purely state polls (which include specific congressional districts, as well as state-wide polls) and national polls. To get our bearings I will apply some statistics to the purely national polls first; we will analyze state variations in polling later.
 
 ### Filter the data to include only "U.S." - or national - polls
+
+Next, I will create a subset of my data set that only contains national polling data. I will also exclude some additional variables opting for a simplified data set containing only the following variables:
+
+1. state
+2. enddate
+4. rawpoll_clinton
+5. rawpoll_trump
+
+I will install the lubridate package, which will allow me to convert my date variable (enddate) 
 
 ```{r}
 install.packages("lubridate")
 library(lubridate)
 
 National_Polls <- Clean_Data %>% 
-  select(state, enddate, samplesize, rawpoll_clinton, rawpoll_trump) %>%
+  select(state, enddate, rawpoll_clinton, rawpoll_trump) %>%
   filter(state == "U.S.") %>%
   mutate(enddate = mdy(enddate)) %>%
   arrange(enddate)
 
-str(National_Polls)
+summary(National_Polls)
 ```
 
-Now that we have the data we need we can do a simply scatter plot of the the rawpoll_clinton and rawpoll_trump fields over time (i.e. by enddate) to see if there are any patterns. Let's start with Clinton's raw polling data.
+A look at the summary of the data reveals some important, baseline statistics. First, it provides us with the total number of observations - i.e. the number of national polls conducted: 3,105. It also provides us with a minimum and maximum time frame for these 3,105 polls: the polls were conducted from November 11th, 2016 through October 31st, 2016 - about 1 year's worth of data. It also appears that Clinton's raw mean polling data is higher than Trump's: 43.91% vs. 39.43%, respectively. Finally, the median raw polling data for both Clinton and Trump are not very far from their means - signifying a lack of extreme outliers.
+
+Now that we undertsand the data a little bit better, let's do a simple scatter plot of the the rawpoll_clinton and rawpoll_trump variables over time (i.e. by enddate) to see if there are any obvious patterns. Let's start with Clinton's raw polling data.
 
 ### Install ggplot2 and plot the rawpoll_clinton data over time to see if there are any obvious patterns.
 
@@ -144,18 +170,22 @@ ggplot(data = National_Polls, aes(x=enddate, y=rawpoll_clinton)) +
 
 Now, let's do the same for Trump's raw polling data.
 
-### Plot the rawpoll_trump data over time to see if there are any obvious patterns.
-
 ```{r}
 ggplot(data = National_Polls, aes(x=enddate, y=rawpoll_trump)) +
   geom_point()
 ```
 
-One obvious pattern that stands out is that the number of polls increases over time. This makes sense, since as we get closer to election day, more and more polls are conducted in order to determine who the likely winner will be. Another obvious pattern is that the variation in the polls also increase over time - like a funnel that widens over time. 
+One obvious pattern that stands out is that the number of polls increases over time. This makes sense, since as we get closer to election day, more and more polls are conducted in order to determine who the likely winner will be. 
 
-Perhaps the most important point to make about the data is that it is quite "noisy" - even temporally close polls can drastically differ in outcome. Smoothing out the data could be helpful in teasing out a meaningful pattern. One potentially useful smoothing technique is a moving average - a rolling average of all polls taken within a certain time frame. A moving average can help us find the "signal" among the "noise".
+Another obvious pattern is that the variation in the polls also increase over time - like a funnel that widens over time. 
+
+Perhaps the most important point to make about the data is that it is quite "noisy" - even temporally close polls can drastically differ in predicted outcome. Smoothing out the data could be helpful in teasing out a meaningful pattern. 
+
+One potentially useful smoothing technique is a moving average - a rolling average of all polls taken within a certain time frame. A moving average can help us find the "signal" amongst the "noise", so to speak.
 
 Let's apply a 100 poll moving average to Clinton's raw polling data and plot it over time. This will provide us with a moving average of the last 100 polls.
+
+To do this, we will need to install another package called "zoo", which provides us with a simple function (rollmean) to calculate a moving average.
 
 ```{r}
 install.packages("zoo")
@@ -178,11 +208,13 @@ ggplot(data = National_Polls, aes(x=enddate, y=Trump_MA)) +
   geom_line()
 ```
 
-After smoothing out the data we can see some clear patterns. Early on in the cycle it appears that Clinton had an early and substantial lead in the polls (though this is tempered by the fact that there were fewer polls during this earlier period). However, this early and substantial lead appears to erode over the summer, improving in the fall but never regaining those early leads. In contrast, Trump's polling data improved over time, starting around July, and spiking in the final weeks of the cycle.
+After smoothing out the data we can see some clear patterns. Early on in the cycle it appears that Clinton had an early and substantial lead in the national polls (though this is tempered by the fact that there were fewer polls during this period). 
 
-Another helpful way of looking at the data is by calculating a margin. So far, the data has been separated into columns for each candidate. Though this is useful, what really matters in elections is which candidate wins a higher percentage of the vote. In other words, what we want to know is the margin between Clinton and Trump.
+However, this early and substantial lead appears to erode over the summer, improving in the fall but never regaining those early leads. In contrast, Trump's polling data improved over time, starting around July, and spiking in the final weeks of the campaign
 
-Since Clinton was favored to win early on, we will subtract Trump's polling figures from Clinton's to arrive at our Margin figure - but we could just as easily done the opposite.
+Another helpful way of looking at the data is by calculating a margin. So far, the data has been separated into two columns, containing polling data for each candidate. Though this is useful, what really matters in elections is which candidate wins a higher percentage of the vote. In other words, what we want to know is the margin between Clinton and Trump.
+
+Since Clinton is our hypothetical client, we will subtract Trump's polling figures from Clinton's to arrive at a Clinton_Margin figure - but we could just as easily done the opposite.
 
 ### Calculate the Clinton - Trump margin and plot it over time.
 
@@ -198,21 +230,25 @@ Using this visualization of margin we can see more clearly the pattern in Clinto
 
 # This is NOT a popularity contest
 
-This is all well and interesting but in American presidential elections the president is chosen not through the popular vote but through the Electoral College. If you are interested in learning more about the Electoral College there are great resources online (https://en.wikipedia.org/wiki/United_States_Electoral_College), but at a very basic level, each state recieves a total number of electoral votes equal to its representation in Congress. 
+This is all well and good but in American presidential elections the president is chosen not through the popular vote but through the Electoral College. In the Electoral College each state recieves a total number of electoral votes equal to its representation in Congress. 
 
 More specifically, each state's total number of electors is equal to the combined total of the state's membership in the Senate and House of Representatives; currently there are 100 senators (2 for each state) and 435 representatives. Additionally, the Twenty-third Amendment of the U.S. Constitution dictates that the District of Columbia (which is NOT a state) is entitled to a number of electors no greater or less than that of the least populous state (i.e. 3 electoral votes), for a total of 538 electoral votes.
 
-Therefore, to win, an American Presidential candidate must win an absolute majority of 270 electoral votes to become president. Therefore, in order to create a model that accurately predicts who will become president, and NOT who will win the most votes, we need to predict the winner in each state, and allocate each state's electoral votes to the predicted winner of each state. The first candidate to 270 wins!
+Therefore, to win, an American presidential candidate must win an absolute majority of 270 electoral votes to become president. Therefore, in order to create a model that accurately predicts who will become president, and NOT who will win the most votes, we need to predict the winner in each state, and allocate each state's electoral votes to the predicted winner of each state. The first candidate to 270 wins!
 
 # "Swing" for the Fences!
 
-It would be very useful to categorize each state according to how likely it is that it would vote for Clinton versus how likely it is to vote for Trump, or - even more importantly - if the state is considered a "toss-up". 
+One of the most important jobs of a presidential campaign is to determine where to campaign. Every campaign is constrained by its limited resources (volunteers, money, advertisting, ect.), so each campaign must make strategic decisions about which states to campaign in. 
 
-On of the most important jobs of a presidential campaign is to determine where to campaign. Every campaign is constrained by its limited resources (volunteers, money, advertisting, ect.), so each campaign must make strategic decisions about which states to campaign in. 
-
-It does not make sense for a campaign to commit resources to a state that is highly unlikely to vote for its candidate, nor does it make sense for a campaign to do the opposite - i.e. to commit resources to a state that is already highly likely to vote for its candidate. Therefore, the optimal use of limited campaign resources is to devote them to "swing" states - i.e. states that could vote for either the campaign's candidate, or their opponent.
+It does not make sense for a campaign to commit resources to a state that is highly unlikely to vote for its candidate, nor does it make sense for a campaign to do the opposite; it makes little sense to commit resources to a state that is already highly likely to vote for you. Therefore, the optimal use of limited campaign resources is to devote them to "swing" states - states that could vote for either you or your opponent.
 
 Toward this end, a k-means clustering model would help us in determining which states are considered solidly Clinton, which states are solidly Trump, and - most importantly - which states are swing states. By choosing a k = 3, we subdivide the states into Clinton, Trump, and Swing.
+
+First we need to create a State specific data set which we will call "State_Polls_Swing". This data set will pull in the same variable as we had in the National polling data but would exclude national polls or district specific polls. 
+
+It is important to note that some states allocate electoral votes by congressional district instead of in a "winner-take-all" fashion. Currently, only two states do so - Maine and Nebraska - but for the sake of simplicity we will assume that as the state goes, so go the congressional districts. Therefore, we will remove any district specific polls in our data. 
+
+We will also create a "Clinton_Margin" variable - similar to our difference in moving averages margin but which in this instance is calculated by subtracting Trump's raw polling numbers from Clinton's.
 
 ```{r}
 State_Polls_Swing <- Clean_Data %>%
@@ -227,6 +263,14 @@ State_Polls_Swing <- Clean_Data %>%
 str(State_Polls_Swing)
 ```
 
+Finally, now that we have calculated our Clinton_Margin variable we can remove the rawpoll_clinton and rawpoll_trump variables.
+
+We also wish to only calculate our k-means clusters using unique polling data so we will modify our polling data to only include unique polls. 
+
+Next we will calculate the euclidean distance amongst Clinton's polling margins. 
+
+Finally we will plot the resulting clusters using a Dendrogram. The dendrogram will either confirm or deny our assignment of k = 3. 
+
 ```{r}
 State_Polls_Swing$rawpoll_clinton = NULL
 State_Polls_Swing$rawpoll_trump = NULL
@@ -238,6 +282,32 @@ plot(clusterStates_Swing)
 
 clusterGroups_Swing <- cutree(clusterStates_Swing, k = 3)
 ```
+
+The dendrogram confirms our selection of k = 3.
+
+Next, we will see how each state's polls are assigned - are they assigned in such a way that they fall into solidly Trump leaning, solidly Clinton leaning, or swing.
+
+We will do this by the pulling cluster groups associated with each state's polling margins, take a mean of the assignments and round it to the nearest whole number to determine which of the three sets it fall into.
+
+For example, if we pull Alabam's cluster groups, we see each margin's assignment: 3 indicating that the margin indicates a solidly Trump state, a 2 indicating that the state is a swing states, and a 1 indicating a solidly Clinton state.
+
+```{r}
+clusterGroups_Swing[State_Polls_Swing$state == "Alabama"]
+```
+
+If we take the mean of these assignments we get an indication of how Trump or Clinton leaning a state is. Let's take Alabama as an example once again.
+
+```{r}
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Alabama"])
+```
+
+Finally, of we round this mean we can determine which of the three clusters the state belongs to. In the case of Alabama we see that this state is solidly Trump supporting.
+
+```{r}
+round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Alabama"]))
+```
+
+If we perform this same calculation for each state we can assign each state to one of our three assignments - solidly Trump (indicated by a 3), solidly Clinton (indicated by a 1), or swing (indicated by a 2)
 
 ```{r}
 # Alabama
@@ -445,6 +515,78 @@ Wyoming_Cluster_Swing <- round(mean(clusterGroups_Swing[State_Polls_Swing$state 
 Wyoming_Cluster_Swing
 ```
 
+If we then assign electoral votes to each candidate based on the states that are solidly Trump leaning or Clinton leaning we arrive at the following results (along with the electoral votes associated with each state):
+
+## Clinton Leaning States
+
+1. California (55)
+2. Colorado (9)
+3. Connecticut (7)
+4. Delaware (3)
+5. District of Columbia (3)
+6. Hawaii (4)
+7. Illinois (20)
+8. Maine (4)
+9. Maryland (10)
+10. Massachusetts (11)
+11. Michigan (16)
+12. Minnesota (10)
+13. New Hampshire (4)
+14. New Jersey (14)
+15. New Mexico (5)
+16. New York (29)
+17. Oregon (7)
+18. Pennsylvania (20)
+19. Rhode Island (4)
+20. Vermont (3)
+21. Virginia (13)
+22. Washington (12)
+23. Wisconsin (10)
+
+Total Electoral Votes: 273
+
+## Trump Leaning States
+
+1. Alabama (9)
+2. Arkansas (6)
+3. Idaho (4)
+4. Kentucky (8)
+5. Louisiana (8)
+6. Mississippi (6)
+7. Montana (3)
+8. Nebraska (5)
+9. North Dakota (3)
+10. Oklahoma (7)
+11. South Dakota (3)
+12. Tennessee (11)
+13. West Virginia (5)
+14. Wyoming (3)
+
+Total Electoral Votes: 81
+
+## Swing States
+
+1. Alaska (3)
+2. Arizona (11)
+3. Florida (29)
+4. Georgia (16)
+5. Indiana (11)
+6. Iowa (6)
+7. Kansas (6)
+8. Missouri (10)
+9. Nevada (6)
+10. North Carolina (15)
+11. Ohio (18)
+12. South Carolina (9)
+13. Texas (38)
+14. Utah (6)
+
+Total Electoral Votes: 184
+
+The model indicates that though Clinton holds what seems like a commanding lead - and a potentially winning lead at that - the substantial list of swing states indicates that the lead is tenuous at best. It is highly unlikely that all of the Clinton leaning states will break for Clinton - nor is it likely that every Trump leaning stat will break for Trump. All it takes is for one small Clinton leaning state to swing for Trump and for the swing states to break for Trump for Clinton to lose. That may seem unlikely, but crazier things have happened in presidential elections. 
+
+To better understand our swing states let's looks at their unrounded mean cluster group values to determine whether they are Clinton leaning or Trump leaning.
+
 ```{r}
 # Alaska
 mean(clusterGroups_Swing[State_Polls_Swing$state == "Alaska"])
@@ -517,7 +659,7 @@ Utah_Data <- Clean_Data %>%
   filter(state == "Utah")
 ```
 
-Let's look at these swing states in order of most Democratic leaning to least Democratic leaning (along with each state's electoral votes):
+Let's look at these swing states in order of most Clinton leaning to least Clinton leaning (along with each state's electoral votes):
 
 1. Florida (29)
 2. Iowa (6)
@@ -554,7 +696,13 @@ If we then order this list in descending order of electoral votes, we get the fo
 5. Iowa (6)
 6. Nevada (6)
 
-This "hit list", represents the states that, according to the model, Clinton should focus on in order to improve her chances of reaching 270 electoral votes.
+This "hit list", represents the states that, according to the model, Clinton should focus on in order to improve her chances of reaching 270 electoral votes. 
+
+We have reached our first recommendation for the Clinton campaign: based on the polling data and our machine learning model, the Clinton campaign should focus on Florida and Ohio, along with North Carolina and Arizona if time and resources permit. It makes little sense for the Clinton campaign to waste time and resources on the relatively small states of Iowa or Nevada.
+
+# Great! But Who Will Win?
+
+
 
 ```{r}
 State_Polls_Final <- State_Polls_Swing
