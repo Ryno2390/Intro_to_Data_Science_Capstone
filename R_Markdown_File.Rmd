@@ -446,6 +446,131 @@ Wyoming_Cluster_Swing
 ```
 
 ```{r}
+# Alaska
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Alaska"])
+Alaska_Data <- Clean_Data %>%
+  filter(state == "Alaska")
+nrow(Alaska_Data)
+
+# Arizona
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Arizona"])
+Arizona_Data <- Clean_Data %>%
+  filter(state == "Arizona")
+nrow(Arizona_Data)
+
+# Florida
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Florida"])
+Florida_Data <- Clean_Data %>%
+  filter(state == "Florida")
+nrow(Florida_Data)
+
+# Georgia
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Georgia"])
+Georgia_Data <- Clean_Data %>%
+  filter(state == "Georgia")
+nrow(Georgia_Data)
+
+# Indiana
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Indiana"])
+Indiana_Data <- Clean_Data %>%
+  filter(state == "Indiana")
+nrow(Indiana_Data)
+
+# Iowa
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Iowa"])
+Iowa_Data <- Clean_Data %>%
+  filter(state == "Iowa")
+nrow(Iowa_Data)
+
+# Kansas
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Kansas"])
+Kansas_Data <- Clean_Data %>%
+  filter(state == "Kansas")
+nrow(Kansas_Data)
+
+# Missouri
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Missouri"])
+Missouri_Data <- Clean_Data %>%
+  filter(state == "Missouri")
+nrow(Missouri_Data)
+
+# Nevada
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Nevada"])
+Nevada_Data <- Clean_Data %>%
+  filter(state == "Nevada")
+nrow(Nevada_Data)
+
+# North Carolina
+mean(clusterGroups_Swing[State_Polls_Swing$state == "North Carolina"])
+North_Carolina_Data <- Clean_Data %>%
+  filter(state == "North Carolina")
+nrow(North_Carolina_Data)
+
+# Ohio
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Ohio"])
+Ohio_Data <- Clean_Data %>%
+  filter(state == "Ohio")
+nrow(Ohio_Data)
+
+# South Carolina
+mean(clusterGroups_Swing[State_Polls_Swing$state == "South Carolina"])
+South_Carolina_Data <- Clean_Data %>%
+  filter(state == "South Carolina")
+nrow(South_Carolina_Data)
+
+# Texas
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Texas"])
+Texas_Data <- Clean_Data %>%
+  filter(state == "Texas")
+nrow(Texas_Data)
+
+# Utah
+mean(clusterGroups_Swing[State_Polls_Swing$state == "Utah"])
+Utah_Data <- Clean_Data %>%
+  filter(state == "Utah")
+nrow(Utah_Data)
+```
+
+Let's look at these swing states in order of most Democratic leaning to least Democratic leaning (along with each state's electoral votes):
+
+1. Florida (29)
+2. Iowa (6)
+3. Arizona (11)
+4. Ohio (18)
+5. North Carolina (15)
+6. Nevada (6)
+7. Georgia (16)*
+8. Kansas (6)*
+9. Alaska (3)*
+10. Missouri (10)*
+11. Utah (6)*
+12. South Carolina (9)*
+13. Indiana (11)*
+14. Texas (38)*
+
+*Indicates that this state leans Republican (i.e. has a mean cluster values greater than 2)
+
+If we eliminate the Republican leaning states we are left with the following list of Democratic leaning swing states:
+
+1. Florida (29)
+2. Iowa (6)
+3. Arizona (11)
+4. Ohio (18)
+5. North Carolina (15)
+6. Nevada (6)
+
+If we then order this list from the greatest number of electoral votes to the least, we get the following "hit list" of swing states:
+
+1. Florida (29)
+2. Ohio (18)
+3. North Carolina (15)
+4. Arizona (11)
+5. Iowa (6)
+6. Nevada (6)
+
+This "hit list", represents the states that, according to the model, Clinton should focus on in order to reach 270 electoral votes.
+
+```{r}
 State_Polls_Final <- State_Polls_Swing
 
 distances_Final <- dist(State_Polls_Final, method = "euclidean")
