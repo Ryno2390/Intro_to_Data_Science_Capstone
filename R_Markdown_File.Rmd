@@ -605,7 +605,7 @@ Total Electoral Votes: 81
 
 Total Electoral Votes: 184
 
-The model indicates that though Clinton holds what seems like a commanding lead - and a potentially winning lead at that - the substantial list of swing states indicates that the lead is tenuous at best. It is highly unlikely that all of the Clinton leaning states will break for Clinton - nor is it likely that every Trump leaning stat will break for Trump. All it takes is for one small Clinton leaning state to swing for Trump and for the swing states to break for Trump for Clinton to lose. That may seem unlikely, but crazier things have happened in presidential elections. 
+The model indicates that though Clinton holds what seems like a commanding, and potentiall winnding, lead the substantial list of swing states indicates that this lead is tenuous at best. It is highly unlikely that every single Clinton leaning state will break for Clinton - nor is it likely that every single Trump leaning state will break for Trump. All it takes is for one small Clinton leaning state to swing for Trump and for the swing states, in general, to break for Trump for Clinton to lose. That may seem unlikely, but crazier things have happened in presidential elections. 
 
 To better understand our swing states let's looks at their unrounded mean cluster group values to determine whether they are Clinton leaning or Trump leaning.
 
@@ -698,7 +698,7 @@ Let's look at these swing states in order of most Clinton leaning to least Clint
 13. Indiana (11)*
 14. Texas (38)*
 
-*Indicates that this state leans Republican (i.e. has a mean cluster values greater than 2)
+*Indicates that this state leans Republican (i.e. has a mean cluster value greater than 2)
 
 If we eliminate the Republican leaning states we are left with the following list of Democratic leaning swing states:
 
@@ -720,15 +720,17 @@ If we then order this list in descending order of electoral votes, we get the fo
 
 This "hit list", represents the states that, according to the model, Clinton should focus on in order to improve her chances of reaching 270 electoral votes. 
 
-We have reached our first recommendation for the Clinton campaign: based on the polling data and our machine learning model, the Clinton campaign should focus on Florida and Ohio, along with North Carolina and Arizona if time and resources permit. It makes little sense for the Clinton campaign to waste time and resources on the relatively small states of Iowa or Nevada.
+Thus, we have reached our first recommendation for the Clinton campaign: based on the polling data and our machine learning model, the Clinton campaign should focus on Florida and Ohio, along with North Carolina and Arizona if time and resources permit. It makes little sense for the Clinton campaign to waste time and resources on the relatively small number of electoral votes represented by the states of Iowa or Nevada, nor should the Clinton campaign commit resources to the Trump leaning swing states of Georgia, Kansas, Alaska, Missouri, Utah, South Carolina, Indiana, or Texas.
 
 # Great! But Who Will Win?
 
-What is elegant and, most important, simple about our k-means clustering model is that we can dial up or down the k-value depending on what question we want to answer. We answered the swing state question by choosing a k-value of 3, but if we want to answer the question of who will win the election we will need a k-value of 2.
+What is elegant and - most important - simple about our k-means clustering model is that we can dial up or down the k-value depending on the question we want to answer. We have aleeady answered the swing state question by choosing a k-value of 3, but if we want to answer our final question - who will win the election - we will need a k-value of 2.
 
-By choosing a k-value of 2, we split the decision into a binary: either Clinton wins a given state or she loses; 1 or 2. By simply modifying our k-value we can rerun our machine learning model to determine a winner in each state and make a final prediction about who will win the election. 
+By choosing a k-value of 2, we split the decision into a binary choice: either Clinton wins a given state or she loses; 1 or 2. By simply modifying our k-value we can rerun our machine learning model to determine a winner in each state and make a final prediction about who will win the election.
 
-To do so we will repeat the process we followed in or swing state model, but set k = 2 instead of 3.
+Though our scree plot indicated that the data is most accurately divided into 3 catagories, the plot also shows that a k value of 2 is prehaps the second best division of the data, so we can be confident in our results.
+
+We will repeat the process we followed in or swing state model, but set k = 2 instead of 3.
 
 ```{r}
 State_Polls_Final <- State_Polls_Swing
@@ -1012,13 +1014,13 @@ Total Electoral Votes: 265
 
 # Defenses Win Championships
 
-What is fascinating about the final results of the model is that the list of Clinton states did not change. Though Clinton's coalition of states is stable, the fact that Trump ran the board on the swing states should worry the Clinton the campaign.
+What is fascinating about the final results is that the list of solidly Clinton supporting states did not change. Though Clinton's coalition of states is stable, the fact that Trump ran the board on the swing states should worry the Clinton campaign.
 
 This indicates two grand strategies that Clinton could adopt:
 
-## 1. Play Defense/Conservative Strategy: Clinton should shore up her base in those states most likely to vote for her. This may not lead to a potential electoral blow-out but it would be the stategy most likely to lead to victory. 
+## 1. Defensive/Conservative Strategy: Clinton should shore up her base in those states most likely to vote for her. This may not lead to an electoral blow-ou, but it would be the stategy most likely to lead to victory. 
 
-If clinton were to adopt this strategy it would be important for her campaign to know which states in her coalition are most likely to defect. She should then devote campaign resources to these at-risk states in order to shore up her likelihood of reaching 270 electoral votes.
+If clinton were to adopt this strategy it would be important for her campaign to know which states in her coalition are most likely to defect to Trump. She should then devote campaign resources to these at-risk states in order to shore up her likelihood of reaching 270 electoral votes.
 
 Let's take a look at the Clinton states' unrounded mean cluster group scores to determine which states are most at risk.
 
@@ -1116,7 +1118,7 @@ Wisconsin_Cluster_Risk <- mean(clusterGroups_Final[State_Polls_Final$state == "W
 Wisconsin_Cluster_Risk
 ```
 
-Let's take a look at these states in order of most at risk to least at risk for Clinton (along with their electoral votes):
+Let's take a look at these states in order of most at risk to least at risk for Clinton:
 
 1. Pennsylvania (20)*
 2. Michigan (16)*
@@ -1142,7 +1144,7 @@ Let's take a look at these states in order of most at risk to least at risk for 
 22. New York (29)
 23. Vermont (3)
 
-If we look only at those states with a risk score of unrounded mean cluster group score of 1.3 or higher (which I have placed an * next to, above), and order the list from greatest electoral votes to least, we get the following "at risk" list (along with their electoral votes):
+If we look only at those states with an unrounded mean cluster group score of 1.3 or higher (next to which I have placed an *), and order the list from greatest electoral votes to least, we get the following "at risk" list:
 
 1. Pennsylvania (20)
 2. Michigan (16)
@@ -1153,13 +1155,13 @@ If we look only at those states with a risk score of unrounded mean cluster grou
 
 Total Electoral Votes: 63
 
-If the Clinton campaign focuses on these states - particularly Pennsylvania, Michigan, and Wisconsin - Clinton will most likely have a wall strong enough to defend against any encroachment by the Trump campaign. Though Clinton would win by a narrow electoral vote margin (8 electoral votes to be specific) her chances of winning would be more assured. 
+If the Clinton campaign focuses on these states - particularly Pennsylvania, Michigan, and Wisconsin - Clinton will most likely have an electoral wall strong enough to defend against any encroachment by the Trump campaign. Though Clinton would win by a narrow electoral vote margin (only 8 electoral votes) her chances of winning would be more assured. 
 
-## 2. Play Offense/Risky Strategy: Clinton should make a play for the swing states, dedicating resources to states with greatest number of electoral votes. Though Clinton may lose some blue states she may make a net gain by winning larger swing states.
+## 2. Offensive/Risky Strategy: Clinton should make a play for the swing states, dedicating resources to states with greatest number of electoral votes. Though Clinton may lose some blue states the result may be a larger overall electoral vote total.
 
-This strategy seeks to maximize electoral votes at greater electoral risk. This strategy isn't always irrational. If the Clinton campaign feels strong in the most at risk states, making a push into large swing states would result in a larger electoral vote margin, and may give the Clinton greater political capital once in office. 
+This strategy seeks to maximize electoral votes at greater electoral risk. This strategy isn't entirely irrational: making a push into large swing states could result in a larger electoral vote margin, and may therefore give Clinton greater political capital once in office. In other words, the goal is not just to win but to win big!
 
-If the Clinton campaign chooses this strategy, it makes the most sense to make a play for states with the largest number of electoral votes. Once again, these states include:
+If the Clinton campaign chooses this strategy, it makes the most sense to campaign in those swing states with the largest number of electoral votes. Once again, these states include:
 
 1. Florida (29)
 2. Ohio (18)
@@ -1170,9 +1172,9 @@ If the Clinton campaign chooses this strategy, it makes the most sense to make a
 
 Total Electoral Votes: 85
 
-For example, if Clinton were to lose all of her "at risk" states but gained all of these swing states, she would net gain 22 electoral votes, bringing her total up to 295 from 273. Perhaps this would change the perceptions of Congress, and porvide her with additional political capital - shifting the narrative from a narrow to comfortable victory.
+If Clinton were to lose all of her "at risk" states but gained all of the above swing states, the result would be a net gain of 22 electoral votes, bringing her total up to 295. Perhaps this would change the perceptions of Congress, and provide her with additional political capital once in office.
 
-However, if we take into account the hypothetical role of this analysis, namely to provide advice and predictions that will get our client elected, then the calculus changes. If our goal is to help our client attain the requisite number of electoral votes with the highest probability of success, then the only strategy that does both is the conservative strategy.
+However, if we take into account the hypothetical role of this analysis, namely to provide advice and predictions that will get our hypothetical client elected, then the calculus is clear. If our goal is to help our client attain the requisite number of electoral votes with the highest probability of success, then the only strategy that does both is the conservative strategy.
 
 Therefore, our recommendation is that the Clinton campaign devote resources to shoring up her "at risk" states and to adopt a more defensive strategy.
 
@@ -1215,7 +1217,7 @@ Next, let's examine the accuracy of our model when it cames to categorizing soli
 
 *Indicates that the state was on our original list of solidly Clinton states
 
-Finally, let's examine the accuracy of our model when it cames to came to categorizing solidly Trump states. Below is a list of states that ened up being solid Trump wins, which we will define as a Clinton margin less than -5%:
+Finally, let's examine the accuracy of our model when it comes to categorizing solidly Trump states. Below is a list of states that ened up being solid Trump wins, which we will define as a Clinton margin less than -5%:
 
 1. Wyoming (-46.30%)*
 2. West Virginia (-42.07%)*
@@ -1244,15 +1246,15 @@ Finally, let's examine the accuracy of our model when it cames to came to catego
 
 *Indicates that the state was on our original list of solidly Trump states.
 
-In terms of swing states, we called 4 out of 11 (or a ~36.4% success rate); in terms of solidly Clinton states, we called 17 out of 17 (or a 100% success rate); and in terms of solidly Trump states, we called 14 out of 24 (or a ~58.3%). Overall, we accurately categorized ~67% of the states.
+In terms of swing states, we called 4 states out of 11 (a ~36.4% success rate); in terms of solidly Clinton states, we called 17 out of 17 (a 100% success rate); and in terms of solidly Trump states, we called 14 out of 24 (a ~58.3% success rate). Overall, our model accurately categorized ~67% of the states.
 
-If we had randomly assigned a 1/3 chance of assigning a state either a solidly Clinton, solidly Trump, or swing state status then we would have expected a success rate of 1/3 or 33.33%. Clearly our model was more accurate than this baseline.
+If we had randomly assigned a 1/3 chance of assigning a state either as solidly Clinton, solidly Trump, or swing state status then we would have expected a success rate of 1/3 or 33.33%. Clearly our model was more accurate than this baseline.
 
 Next, let's turn to our final prediction. In the end we accurately predicted the winner of every states except 4 - Michigan, Nevada, Pennsylvania, and Wisconsin - a ~92% accuracy rate. If we compare this a random coin toss, we handily beat this baseline assumption of 50%. 
 
-But note! Of those four states we got wrong, three were on our "at risk" list of states, namely Pennsylvania, Michigan, and Wisconsin. As part of our conservative startegy recommendation we urged the Clinton campaign to dedicate resources to these three states in order to shore up support there and to prevent these states from turning red - especially given her very narrow and extremely tenuous lead in the electoral college.
+But note! Of those four states we got wrong, three were on our "at risk" list of states: Pennsylvania, Michigan, and Wisconsin. As part of our conservative startegy recommendation we urged the Clinton campaign to dedicate resources to these three states in order to shore up support and to prevent defection - especially given her very narrow and extremely tenuous lead in the electoral college.
 
-In one of FiveThirtyEight.com's post 2016 election synposes, Nate Silver discussed this very thing, writing: 
+In one of FiveThirtyEight.com's post 2016 election synposes, Nate Silver discussed this very development, writing: 
 
 "In fact, Clinton’s Electoral College leads weren’t very robust. And the single biggest reason was because of her relatively weak polling in the Midwest, especially as compared to President Obama four years ago. Because the outcomes in these Midwestern states were highly correlated, having problems in any one of them would mean that Clinton was probably having trouble in the others, as well.
 
