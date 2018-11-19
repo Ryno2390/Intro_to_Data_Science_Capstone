@@ -14,17 +14,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### What is the problem you want to solve?
 
-Analyze the voting patterns of the US during the 2016 Presidential election - with a stretch goal of creating a prediction model of who would have won the 2016 Presidential election using FiveThirtyEight's election data. 
+Analyze the voting patterns of the US during the 2016 in order to create a model that would not only predict who would have won the 2016 Presidential election, but would also provide actionable intelligence to a presidential campaign.
 
 ### Who is your client and why do they care about this problem? In other words, what will your client DO or DECIDE based on your analysis that they wouldn’t have otherwise?
 
-Presidential campaigns are big business. The final price tag for the 2016 election was $6.5 billion for the presidential and congressional elections combined, according to campaign finance watchdog OpenSecrets.org (https://www.opensecrets.org/news/2017/04/election-2016-trump-fewer-donors-provided-more-of-the-cash/), with the presidential race, alone, being responsible for $2.4 billion.
+Presidential campaigns are big business. The final price tag for the 2016 election was $6.5 billion for the presidential and congressional elections combined, according to campaign finance watchdog OpenSecrets.org (https://www.opensecrets.org/news/2017/04/election-2016-trump-fewer-donors-provided-more-of-the-cash/), with the presidential race, alone, being responsible for $2.4 billion of that total.
 
-Needless to say, there are a lot of interested parties when it comes to the outcome of elections - particularly for the highest position in the U.S. government. Perhaps the mots interested party being that of the campaigns themselves. Of the $2.4 billion spend on the presidential campaigns in 2016, $398 million was spent by the Trump campaign, and a whopping $768 million was spent by the Clinton campaign.
+Needless to say, there are a lot of interested parties when it comes to the outcome of elections - perhaps the most interested party being that of the campaigns themselves. Of the $2.4 billion spend on the presidential campaigns in 2016, $398 million was spent by the Trump campaign, and a whopping $768 million was spent by the Clinton campaign, a sizable percentage of which was spent on data and analytics.
 
-For this project I will be assuming that my main client is the Clinton campaign, which is highly interested in a model that could not only predict who would win the election (based on readily available polling data), but also how to proceed strategically - specifically, which states to campaign in and which to avoid.
+For this project I will be assuming that my main client is the Clinton campaign. My job, in this hypothetical scenario, is to build model that could not only predict who would win the election (based on readily available polling data), but also how to proceed strategically - specifically, which states to campaign in and which to avoid.
 
-This type of information is valuable to campaigns because campaign face a budget constraint. Though the Clinton campaign spent $768 million during the 2016 campaign, the Clinton campaigns budget was not infinite: the campaign had to make strategic decisions about how to optimally allocate the limited resources it had.
+This type of information is valuable to campaigns because campaign face a hard budget constraint. Though the Clinton campaign spent $768 million during the 2016 campaign, the Clinton campaign's budget was not infinite: all campaigns have to make strategic decisions about how to optimally allocate the limited resources at their disposal.
 
 My model will be designed to provide answers to two basic questions:
 
@@ -37,7 +37,7 @@ I will use FiveThirtyEight.com's data which is readily available through Kaggle 
 
 ### In brief, outline your approach to solving this problem (knowing that this might change later).
 
-My approach will be to understand FiveThirtyEight's model and to simplify the model as much as possible, using the skills - particularly machine learning - I learned in this course. I will then use the data to analyze state-wide voting patterns, with a goal of creating a model that can incorporate new polling data to update it's classification of swing states as well as predict of who will win the election.
+My approach will be to understand FiveThirtyEight's model and to simplify the model as much as possible, using the skills I learned in this course - particularly machine learning. I will then use the data to analyze state-wide voting patterns, with a goal of creating a model that can incorporate new polling data to update it's classification of swing states as well as predict of who will win the election.
 
 ### What are your deliverables? Typically, this would include code, along with a paper and/or a slide deck.
 
@@ -58,7 +58,7 @@ Raw_Data <- read_csv("presidential_polls.csv")
 str(Raw_Data)
 ```
 
-There are many superfluous columns in this data set that are not pertinent to this project. Let's see if we can hone and clean our data set. We can exclude the following variables from our final data set (I have also provided a quick explanation as to why I am excluding a particular variable):
+There are many superfluous columns in this data set that we can remove. Let's see if we can hone and clean our data set. We can exclude the following variables from our final data set (I have also provided a quick explanation as to why a particular variable has been excluded):
 
 + cycle - all values are the same (i.e. set to "2016")
 
@@ -128,18 +128,18 @@ Clean_Data <- Raw_Data %>% select(-c(cycle:forecastdate, rawpoll_johnson, rawpol
 str(Clean_Data)
 ```
 
-A quick overview of the "state" column reveals that there are really two different types of polls: purely state polls (which include specific congressional districts, as well as state-wide polls) and national polls. To get our bearings I will apply some statistics to the purely national polls first; we will analyze state variations in polling later.
+A quick overview of the "state" column reveals that there are really two different types of polls: purely state polls (which include specific congressional districts, as well as state-wide polls) and national polls. To get our bearings I will apply some statistics to the national polling data first.
 
 ### Filter the data to include only "U.S." - or national - polls
 
-Next, I will create a subset of my data set that only contains national polling data. I will also exclude some additional variables opting for a simplified data set containing only the following variables:
+Next, let's create a subset of that data containing only national polling data. Let's also exclude some additional variables, opting for a simplified data set containing only the following variables:
 
 1. state
 2. enddate
 4. rawpoll_clinton
 5. rawpoll_trump
 
-I will install the lubridate package, which will allow me to convert my date variable (enddate) 
+I will install the lubridate package, which will allow me to convert my date variable (enddate) into a more universally readable format (mdy - month, day, year)
 
 ```{r}
 install.packages("lubridate")
@@ -154,7 +154,11 @@ National_Polls <- Clean_Data %>%
 summary(National_Polls)
 ```
 
-A look at the summary of the data reveals some important, baseline statistics. First, it provides us with the total number of observations - i.e. the number of national polls conducted: 3,105. It also provides us with a minimum and maximum time frame for these 3,105 polls: the polls were conducted from November 11th, 2016 through October 31st, 2016 - about 1 year's worth of data. It also appears that Clinton's raw mean polling data is higher than Trump's: 43.91% vs. 39.43%, respectively. Finally, the median raw polling data for both Clinton and Trump are not very far from their means - signifying a lack of extreme outliers.
+A look at the summary of the data reveals some important, baseline statistics. First, it provides us with the total number of observations - i.e. the number of national polls: 3,105. 
+
+The data also provides us with timeframe over which these polls were conducted: November 11th, 2016 through October 31st, 2016 - about 1 year's worth of data. 
+
+It also appears that Clinton's raw mean polling data is higher than Trump's: 43.91% vs. 39.43%, respectively. Finally, the median raw polling data for both Clinton and Trump are not very far from their means - signifying a lack of extreme outliers.
 
 Now that we undertsand the data a little bit better, let's do a simple scatter plot of the the rawpoll_clinton and rawpoll_trump variables over time (i.e. by enddate) to see if there are any obvious patterns. Let's start with Clinton's raw polling data.
 
@@ -181,7 +185,7 @@ Another obvious pattern is that the variation in the polls also increase over ti
 
 Perhaps the most important point to make about the data is that it is quite "noisy" - even temporally close polls can drastically differ in predicted outcome. Smoothing out the data could be helpful in teasing out a meaningful pattern. 
 
-One potentially useful smoothing technique is a moving average - a rolling average of all polls taken within a certain time frame. A moving average can help us find the "signal" amongst the "noise", so to speak.
+One potentially useful smoothing technique is a moving average - a rolling average of predefined number of polls. A moving average can help us find the "signal" amongst the "noise".
 
 Let's apply a 100 poll moving average to Clinton's raw polling data and plot it over time. This will provide us with a moving average of the last 100 polls.
 
@@ -210,11 +214,11 @@ ggplot(data = National_Polls, aes(x=enddate, y=Trump_MA)) +
 
 After smoothing out the data we can see some clear patterns. Early on in the cycle it appears that Clinton had an early and substantial lead in the national polls (though this is tempered by the fact that there were fewer polls during this period). 
 
-However, this early and substantial lead appears to erode over the summer, improving in the fall but never regaining those early leads. In contrast, Trump's polling data improved over time, starting around July, and spiking in the final weeks of the campaign
+However, this early and substantial lead appears to erode over the summer, improving in the fall but never fully regaining those early hights. In contrast, Trump's polling data improved over time, starting around July, and spiking in the final weeks of the campaign
 
-Another helpful way of looking at the data is by calculating a margin. So far, the data has been separated into two columns, containing polling data for each candidate. Though this is useful, what really matters in elections is which candidate wins a higher percentage of the vote. In other words, what we want to know is the margin between Clinton and Trump.
+So far, the data has been separated into two columns, containing polling data for each candidate. Though this is useful, what really matters in elections is which candidate wins a higher percentage of the vote. In other words, what we want to know is the margin between Clinton and Trump.
 
-Since Clinton is our hypothetical client, we will subtract Trump's polling figures from Clinton's to arrive at a Clinton_Margin figure - but we could just as easily done the opposite.
+Since Clinton is our hypothetical client, we will subtract Trump's polling figures from Clinton's to arrive at a Clinton_Margin figure. A positive figure indicates that Clinton leads Trump in the national polls and a negative figure indicates that Clinto is trailing Trump in the national polls.
 
 ### Calculate the Clinton - Trump margin and plot it over time.
 
@@ -226,11 +230,11 @@ ggplot(National_Polls, aes(x=enddate, y=Clinton_Margin)) +
   geom_line()
 ```
 
-Using this visualization of margin we can see more clearly the pattern in Clinton's chances of winning the presidency. We see an early rise in her chances as she widened her margin from January through May; however, her chances deteriorated throughout the Summer and Fall - reaching their lowest point in August (where it was actually net negative for the first time), only to regain in mid-September through mid-October period, preciptously falling back down in late October. If this late, falling trend were extended through election day (i.e. November 6th, 2016), it's entirely plausible that Clinton would have had a net negative margin on election day.
+Using this visualization of margin we can see more clearly the pattern of Clinton's chances of winning the presidency. We see an early rise in her chances as she widened her margin from January through May. However, her chances deteriorated throughout the Summer and Fall - reaching their lowest point in August (where it was actually net negative for the first, and only, time during the campaign), only to regain in mid-September through mid-October period, preciptously falling back down in late October. If this late, falling trend were extended through election day (i.e. November 6th, 2016), it's entirely plausible that Clinton would have had a net negative margin on election day.
 
 # This is NOT a popularity contest
 
-This is all well and good but in American presidential elections the president is chosen not through the popular vote but through the Electoral College. In the Electoral College each state recieves a total number of electoral votes equal to its representation in Congress. 
+This is all very interesting, but in American presidential elections the president is chosen not through the popular vote but through the Electoral College. In the Electoral College each state recieves a total number of electoral votes equal to its representation in Congress. 
 
 More specifically, each state's total number of electors is equal to the combined total of the state's membership in the Senate and House of Representatives; currently there are 100 senators (2 for each state) and 435 representatives. Additionally, the Twenty-third Amendment of the U.S. Constitution dictates that the District of Columbia (which is NOT a state) is entitled to a number of electors no greater or less than that of the least populous state (i.e. 3 electoral votes), for a total of 538 electoral votes.
 
