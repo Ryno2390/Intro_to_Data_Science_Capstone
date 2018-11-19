@@ -12,34 +12,36 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Questions to Answer 
 
-### What is the problem you want to solve?
+## What is the problem you want to solve?
 
 Analyze U.S. polling data during the 2016 presidential election in order to create a model that would not only predict who would have won the 2016 Presidential election, but would also provide actionable intelligence to a presidential campaign.
 
-### Who is your client and why do they care about this problem? In other words, what will your client DO or DECIDE based on your analysis that they wouldn’t have otherwise?
+## Who is your client and why do they care about this problem? In other words, what will your client DO or DECIDE based on your analysis that they wouldn’t have otherwise?
 
-Presidential campaigns are big business. The final price tag for the 2016 election was $6.5 billion for the presidential and congressional elections combined, according to campaign finance watchdog OpenSecrets.org (https://www.opensecrets.org/news/2017/04/election-2016-trump-fewer-donors-provided-more-of-the-cash/), with the presidential race, alone, being responsible for $2.4 billion of that total.
+Presidential campaigns are big business. The final price tag for the 2016 election was $6.5 billion for the presidential and congressional elections combined, according to campaign finance watchdog OpenSecrets.org (https://www.opensecrets.org/news/2017/04/election-2016-trump-fewer-donors-provided-more-of-the-cash/), with the presidential race, alone, responsible for $2.4 billion of that total.
 
-Needless to say, there are a lot of interested parties when it comes to the outcome of elections - perhaps the most interested party being that of the campaigns themselves. Of the $2.4 billion spend on the presidential campaigns in 2016, $398 million was spent by the Trump campaign, and a whopping $768 million was spent by the Clinton campaign, a sizable percentage of which was spent on data and analytics.
+Needless to say, there are a lot of interested parties when it comes to the outcome of elections - perhaps the most interested party being that of the campaigns themselves. Of the $2.4 billion spent on the presidential campaigns in 2016, $398 million was spent by the Trump campaign, and a whopping $768 million was spent by the Clinton campaign, a sizable percentage of which was spent on data and analytics.
 
-For this project I will be assuming that my main client is the Clinton campaign. My job, in this hypothetical scenario, is to build model that could not only predict who would win the election (based on readily available polling data), but also how to proceed strategically - specifically, which states to campaign in and which to avoid.
+For this project I will be assuming that my main client is the Clinton campaign. My job, in this hypothetical scenario, is to build model that could not only predict who would win the election (based on readily available polling data) but also how to proceed strategically - specifically, which states to campaign in and which to avoid.
 
-This type of information is valuable to campaigns because campaigns face budget constraints. Though the Clinton campaign spent a large amount of money during the 2016 campaign, the campaign's budget was not infinite: all campaigns have to make strategic decisions about how to optimally allocate the limited resources at their disposal.
+This type of information is valuable to campaigns as campaigns face budget constraints. Though the Clinton campaign spent a large amount of money during the 2016 campaign, the campaign's budget was not infinite; all campaigns have to make strategic decisions about how to optimally allocate the limited resources at their disposal.
 
 To aid the campaign in making resource allocation decisions, my model will be designed to provide answers to two basic questions:
 
 1. What states should the Clinton campaign focus on (i.e. to determine which states are "swing" states)?
 2. Which candidate is most likely to win in each state - Clinton or Trump?
 
-### What data are you going to use for this? How will you acquire this data?
+## What data are you going to use for this? How will you acquire this data?
 
 I will use FiveThirtyEight.com's data which is readily available through Kaggle.com (https://www.kaggle.com/fivethirtyeight/2016-election-polls#presidential_polls.csv)
 
-### In brief, outline your approach to solving this problem (knowing that this might change later).
+## In brief, outline your approach to solving this problem (knowing that this might change later).
 
-My approach will be to create a machine learning program that will be able to incorporate new, raw polling data and to categroize states according to status (i.e. Clinton supporting, Trump Supporting, or Swing) using a k-means clustering method. Then, using a modified version of this model I will also categorize states into a simple binary of Clinton and Trump states, updating my prediction of electoral vote totals for each candidate. The candidate who reaches 270 electoral votes is deemed the winner.
+My approach will be to create a machine learning program that will be able to incorporate new, raw polling data in order to categorize states according to status: Clinton supporting, Trump Supporting, or Swing. I will attempt to do this using an unsupervised, k-means clustering method. 
 
-### What are your deliverables? Typically, this would include code, along with a paper and/or a slide deck.
+Using a modified version of this method, I will also categorize states into a simple binary of Clinton and Trump states, updating my prediction of electoral vote totals for each candidate, with The candidate who reaches 270 electoral votes deemed the likely winner.
+
+## What are your deliverables? Typically, this would include code, along with a paper and/or a slide deck.
 
 The deliverables will include:
 
@@ -91,7 +93,7 @@ There are many superfluous columns in this data set that we can remove. Let's se
 
 + timestamp - date the model was rerun incorporating all the data up to that point. The model was last updated November 1st, 2018 and is irrelevant to my data set.
 
-This leaves the following fields in my final data set:
+## This leaves the following fields in my final data set:
 
 + state - the state from which the poll was taken (the value "U.S." signifies a national poll)
 
@@ -101,11 +103,11 @@ This leaves the following fields in my final data set:
 
 + pollster - the organization that conducted the poll
 
-+ grade - the accuraacy rating of the polling organization. FiveThirtyEight determines this grade by analyzing a pollster's past predictions and comparing them to actual results. The more accurate the pollster the higher the grade.
++ grade - the accuracy rating of the polling organization. FiveThirtyEight determines this grade by analyzing a pollster's past predictions and comparing them to actual results. The more accurate the pollster the higher the grade.
 
 + samplesize - the size of the sample for the poll (i.e. the "n" value)
 
-+ population - a unique regional identifier that FiveThirtyEight uses in their model. I may or may not use this variable so I will tentatively keep it in my final data set.
++ population - a unique regional identifier that FiveThirtyEight uses in their model. I may or may not use this variable so I will tentatively keep it in my final dataset.
 
 + poll_wt - the weight assigned to each poll predicated on the polling organization's grade
 
@@ -113,11 +115,11 @@ This leaves the following fields in my final data set:
 
 + rawpoll_trump - the raw percentage of respondents polled who plan on voting for Donald Trump
 
-+ adjpoll_clinton - the weight adjusted percentage of respondents polled who plan on voting for Hillary Clinton
++ adjpoll_clinton - the weight-adjusted percentage of respondents polled who plan on voting for Hillary Clinton
 
-+ adjpoll_trump - the weight adjusted percentage of respondents polled who plan on voting for Donald Trump
++ adjpoll_trump - the weight-adjusted percentage of respondents polled who plan on voting for Donald Trump
 
-### Remove superfluous columns from the data set to produce a clean data set
+# Remove superfluous columns from the data set to produce a clean data set
 
 Now that I have chosen the final variables for my data set the next step is to exclude the superflous variables. We can do this easily using the dplyr package.
 
@@ -131,7 +133,7 @@ str(Clean_Data)
 
 A quick overview of the "state" column reveals that there are really two different types of polls: purely state polls (which include specific congressional districts, as well as state-wide polls) and national polls. To get our bearings I will apply some statistics to the national polling data first.
 
-### Filter the data to include only "U.S." - or national - polls
+## Filter the data to include only "U.S." - or national - polls
 
 Next, let's create a subset of that data containing only national polling data. Let's also exclude some additional variables, opting for a simplified data set containing only the following variables:
 
@@ -163,7 +165,7 @@ It also appears that Clinton's raw mean polling data is higher than Trump's: 43.
 
 Now that we undertsand the data a little bit better, let's do a simple scatter plot of the the rawpoll_clinton and rawpoll_trump variables over time (i.e. by enddate) to see if there are any obvious patterns. Let's start with Clinton's raw polling data.
 
-### Install ggplot2 and plot the rawpoll_clinton data over time to see if there are any obvious patterns.
+## Install ggplot2 and plot the rawpoll_clinton data over time to see if there are any obvious patterns.
 
 ```{r}
 install.packages("ggplot2")
@@ -229,7 +231,7 @@ So far, the data has been separated into two columns, containing polling data fo
 
 Since Clinton is our hypothetical client, we will subtract Trump's polling figures from Clinton's to arrive at a Clinton_Margin figure. A positive figure indicates that Clinton leads Trump in the national polls and a negative figure indicates that Clinto is trailing Trump in the national polls.
 
-### Calculate the Clinton - Trump margin and plot it over time.
+## Calculate the Clinton - Trump margin and plot it over time.
 
 ```{r}
 National_Polls <- National_Polls %>%
@@ -251,7 +253,7 @@ More specifically, each state's total number of electors is equal to the combine
 
 Therefore, to win, an American presidential candidate must win an absolute majority of 270 electoral votes to become president. Therefore, in order to create a model that accurately predicts who will become president, and NOT who will win the most votes, we need to predict the winner in each state, and allocate each state's electoral votes to the predicted winner of each state. The first candidate to 270 wins!
 
-# "Swing" for the Fences!
+## "Swing" for the Fences!
 
 One of the most important jobs of a presidential campaign is to determine where to campaign. Every campaign is constrained by its limited resources (volunteers, money, advertisting, ect.), so each campaign must make strategic decisions about which states to campaign in. 
 
