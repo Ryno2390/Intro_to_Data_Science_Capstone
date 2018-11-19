@@ -254,6 +254,8 @@ It is important to note that some states allocate electoral votes by congression
 
 We will also create a "Clinton_Margin" variable - similar to our difference in moving averages margin but which in this instance is calculated by subtracting Trump's raw polling numbers from Clinton's.
 
+Finally, we also wish to only calculate our k-means clusters using unique polling data so we will modify our polling data to only include unique polls. 
+
 ```{r}
 State_Polls_Swing <- Clean_Data %>%
   select(state, pollster, rawpoll_clinton, rawpoll_trump) %>%
@@ -267,13 +269,33 @@ State_Polls_Swing <- Clean_Data %>%
 str(State_Polls_Swing)
 ```
 
-Finally, now that we have calculated our Clinton_Margin variable we can remove the rawpoll_clinton and rawpoll_trump variables.
+When it comes to selecting a k value for our k-means cluster model, we understand through pre-existing domain knowledge that states often fall into one of three categories: deep red or Republican states, deep blue or Democratic states, and swing state - states that will often swing back and forth between the two parties depending on the candidates. Therefore, we should choose a k value of 3.
 
-We also wish to only calculate our k-means clusters using unique polling data so we will modify our polling data to only include unique polls. 
+We can confirm or deny this inclination using a scree plot. A scree plot charts the degree of scattering or variance inside a cluster as the total number of clusters increase. A scree plot compares the Sum of Squared Errors (SSE) - measured as the sum of the squared distances between the centroid and the other neighbors inside the cluster. Generally, SSE drops as more clusters are created. 
 
-Next we will calculate the euclidean distance amongst Clinton's polling margins. 
+In general, we should opt for a number of clusters where the SSE decreases dramatically to the left on our plot, but before it reaches a point of little to no chage as the number of clusters increases (i.e. as we move right along the grapth). If this dramatic drop (often referred to as an "eblow") occurs when the number of clusters is equal to 3, we can be confident that our selection of k = 3 is legitimate.
 
-Finally we will plot the resulting clusters using a Dendrogram. The dendrogram will either confirm or deny our assignment of k = 3. 
+```{r}
+State_Polls_Scree <- State_Polls_Swing$Clinton_Margin
+
+df <- scale(State_Polls_Scree)
+
+wssplot <- function(data, nc=15, seed=1234){
+	              wss <- (nrow(data)-1)*sum(apply(data,2,var))
+               	      for (i in 2:nc){
+		        set.seed(seed)
+	                wss[i] <- sum(kmeans(data, centers=i)$withinss)}
+	                
+		      plot(1:nc, wss, type="b", xlab="Number of Clusters",
+	                        ylab="Within groups sum of squares")
+	   }
+
+wssplot(df)
+```
+
+The scree plot, indeed, confirms our inclination that k should be equal to 3. This will ensure that these three cluster solutions are distinct and will have a significant impact on our classification of the states.
+
+Now that we have calculated our Clinton_Margin variable we can remove the rawpoll_clinton and rawpoll_trump variables. Next we will calculate the euclidean distance amongst Clinton's polling margins and set k equal to 3. 
 
 ```{r}
 State_Polls_Swing$rawpoll_clinton = NULL
@@ -282,14 +304,10 @@ State_Polls_Swing <- unique(State_Polls_Swing)
 
 distances_Swing <- dist(State_Polls_Swing, method = "euclidean")
 clusterStates_Swing <- hclust(distances_Swing, method = "ward")
-plot(clusterStates_Swing)
-
 clusterGroups_Swing <- cutree(clusterStates_Swing, k = 3)
 ```
 
-The dendrogram confirms our selection of k = 3.
-
-Next, we will see how each state's polls are assigned - are they assigned in such a way that they fall into solidly Trump leaning, solidly Clinton leaning, or swing.
+Next, we will see how each state's polls are assigned: are they assigned in such a way that they fall into the solidly Trump leaning category, solidly Clinton leaning category, or the swing category?
 
 We will do this by the pulling cluster groups associated with each state's polling margins, take a mean of the assignments and round it to the nearest whole number to determine which of the three sets it fall into.
 
@@ -305,7 +323,7 @@ If we take the mean of these assignments we get an indication of how Trump or Cl
 mean(clusterGroups_Swing[State_Polls_Swing$state == "Alabama"])
 ```
 
-Finally, of we round this mean we can determine which of the three clusters the state belongs to. In the case of Alabama we see that this state is solidly Trump supporting.
+Finally, if we round this mean, we can determine which of the three clusters the state belongs to. In the case of Alabama we see that this state is solidly Trump supporting.
 
 ```{r}
 round(mean(clusterGroups_Swing[State_Polls_Swing$state == "Alabama"]))
