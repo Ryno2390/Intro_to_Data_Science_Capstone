@@ -242,7 +242,7 @@ National_Polls <- National_Polls %>%
 Clinton_Margin_plot <- ggplot(National_Polls, aes(x=enddate, y=Clinton_Margin)) +
   geom_line(color = "purple")
 
-print(Clinton_Margin_plot + ggtitle("Clinton 100 Poll Moving Average"))
+print(Clinton_Margin_plot + ggtitle("Clinton_Margin 100 Poll Moving Average"))
 ```
 
 Using this visualization of margin we can see more clearly the pattern of Clinton's chances of winning the presidency. We see an early rise in her chances as she widened her margin from January through May. However, her chances deteriorated throughout the Summer and Fall - reaching their lowest point in August (where it was actually net-negative for the first and only time during the campaign), only to regain in mid-September through mid-October period, precipitously falling back down in late October. If this late, falling trend were extended through election day (i.e. November 6th, 2016), it's entirely plausible that Clinton would have had a net negative margin on election day.
@@ -1176,7 +1176,7 @@ If the Clinton campaign focuses on these states - particularly Pennsylvania, Mic
 
 This strategy seeks to maximize electoral votes at greater electoral risk. This strategy isn't entirely irrational: making a push into large swing states could result in a larger electoral vote margin, and may therefore give Clinton greater political capital once in office. In other words, the goal is not just to win but to win big.
 
-If the Clinton campaign chooses this strategy, 1N
+If the senior campaign team chooses this strategy it makes the most sense to campaign in those swing states with the largest number of electoral votes. Once again, these states include:
 
 1. Florida (29)
 2. Ohio (18)
