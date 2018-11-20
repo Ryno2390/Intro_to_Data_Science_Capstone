@@ -49,6 +49,8 @@ The deliverables will include:
 
 + A detailed summary paper intended for the senior members of the campaign, containing recommednations for campaign allocation of resources and predictions.
 
++ A slide deck, walking the hypothetical Senior Team through the model and its findings.
+
 # Upload data into RStudio
 
 The first step is to upload FiveThirtyEight's election data to RStudio.
