@@ -194,7 +194,7 @@ Another obvious pattern is that the variation in the polls also increase over ti
 
 Perhaps the most important point to make about the data is that it is quite "noisy" - even temporally close polls can drastically differ in predicted outcome. Smoothing out the data could be helpful in teasing out a meaningful pattern. 
 
-One potentially useful smoothing technique is a moving average - a rolling average of predefined number of polls. A moving average can help us find the "signal" amongst the "noise".
+One potentially useful smoothing technique is a moving average - a rolling average of a predefined number of polls. A moving average can help us find the "signal" amongst the "noise".
 
 Let's apply a 100 poll moving average to Clinton's raw polling data and plot it over time. This will provide us with a moving average of the last 100 polls.
 
@@ -227,11 +227,11 @@ print(Trump_MA_plot + ggtitle("Trump 100 Poll Moving Average"))
 
 After smoothing out the data we can see some clear patterns. Early on in the cycle it appears that Clinton had an early and substantial lead in the national polls (though this is tempered by the fact that there were fewer polls during this period). 
 
-However, this early and substantial lead appears to erode over the summer, improving in the fall but never fully regaining those early hights. In contrast, Trump's polling data improved over time, starting around July, and spiking in the final weeks of the campaign
+However, this early and substantial lead appears to erode over the summer, improving in the fall but never fully regaining those early highs. In contrast, Trump's polling data improved over time, starting around July, and spiking in the final weeks of the campaign.
 
 So far, the data has been separated into two columns, containing polling data for each candidate. Though this is useful, what really matters in elections is which candidate wins a higher percentage of the vote. In other words, what we want to know is the margin between Clinton and Trump.
 
-Since Clinton is our hypothetical client, we will subtract Trump's polling figures from Clinton's to arrive at a Clinton_Margin figure. A positive figure indicates that Clinton leads Trump in the national polls and a negative figure indicates that Clinto is trailing Trump in the national polls.
+Since Clinton is our hypothetical client, we will subtract Trump's polling figures from Clinton's to arrive at a Clinton_Margin figure. A positive figure indicates that Clinton leads Trump in the national polls and a negative figure indicates that Clinton is trailing Trump in the national polls.
 
 ## Calculate the Clinton - Trump margin and plot it over time.
 
@@ -245,29 +245,29 @@ Clinton_Margin_plot <- ggplot(National_Polls, aes(x=enddate, y=Clinton_Margin)) 
 print(Clinton_Margin_plot + ggtitle("Clinton 100 Poll Moving Average"))
 ```
 
-Using this visualization of margin we can see more clearly the pattern of Clinton's chances of winning the presidency. We see an early rise in her chances as she widened her margin from January through May. However, her chances deteriorated throughout the Summer and Fall - reaching their lowest point in August (where it was actually net negative for the first, and only, time during the campaign), only to regain in mid-September through mid-October period, preciptously falling back down in late October. If this late, falling trend were extended through election day (i.e. November 6th, 2016), it's entirely plausible that Clinton would have had a net negative margin on election day.
+Using this visualization of margin we can see more clearly the pattern of Clinton's chances of winning the presidency. We see an early rise in her chances as she widened her margin from January through May. However, her chances deteriorated throughout the Summer and Fall - reaching their lowest point in August (where it was actually net-negative for the first and only time during the campaign), only to regain in mid-September through mid-October period, precipitously falling back down in late October. If this late, falling trend were extended through election day (i.e. November 6th, 2016), it's entirely plausible that Clinton would have had a net negative margin on election day.
 
 # This is NOT a popularity contest
 
-This is all very interesting, but in American presidential elections the president is chosen not through the popular vote but through the Electoral College. In the Electoral College each state recieves a total number of electoral votes equal to its representation in Congress. 
+This is all very interesting, but in American presidential elections, the president is chosen not through the popular vote but through the Electoral College. In the Electoral College, each state receives a total number of electoral votes equal to its representation in Congress.
 
-More specifically, each state's total number of electors is equal to the combined total of the state's membership in the Senate and House of Representatives; currently there are 100 senators (2 for each state) and 435 representatives. Additionally, the Twenty-third Amendment of the U.S. Constitution dictates that the District of Columbia (which is NOT a state) is entitled to a number of electors no greater or less than that of the least populous state (i.e. 3 electoral votes), for a total of 538 electoral votes.
+More specifically, each state's total number of electors is equal to the combined total of the state's membership in the Senate and House of Representatives; currently, there are 100 senators (2 for each state) and 435 representatives. Additionally, the Twenty-third Amendment of the U.S. Constitution dictates that the District of Columbia (which is NOT a state) is entitled to a number of electors no greater or less than that of the least populous state (i.e. 3 electoral votes), for a total of 538 electoral votes.
 
-Therefore, to win, an American presidential candidate must win an absolute majority of 270 electoral votes to become president. Therefore, in order to create a model that accurately predicts who will become president, and NOT who will win the most votes, we need to predict the winner in each state, and allocate each state's electoral votes to the predicted winner of each state. The first candidate to 270 wins!
+Therefore, to win, an American presidential candidate must win an absolute majority of 270 electoral votes to become president. Therefore, in order to create a model that accurately predicts who will become president, and NOT who will win the most votes, we need to predict the winner in each state and allocate each state's electoral votes to the predicted winner of each state. The first candidate to 270 wins.
 
 ## "Swing" for the Fences!
 
-One of the most important jobs of a presidential campaign is to determine where to campaign. Every campaign is constrained by its limited resources (volunteers, money, advertisting, ect.), so each campaign must make strategic decisions about which states to campaign in. 
+The most critical job of a presidential campaign is to determine where to campaign. Every campaign is constrained by its limited resources (volunteers, money, advertisting, ect.), so each campaign must make strategic decisions about which states to campaign in. 
 
 It does not make sense for a campaign to commit resources to a state that is highly unlikely to vote for its candidate, nor does it make sense for a campaign to do the opposite; it makes little sense to commit resources to a state that is already highly likely to vote for you. Therefore, the optimal use of limited campaign resources is to devote them to "swing" states - states that could vote for either you or your opponent.
 
-Toward this end, a k-means clustering model would help us in determining which states are considered solidly Clinton, which states are solidly Trump, and - most importantly - which states are swing states. By choosing a k = 3, we subdivide the states into Clinton, Trump, and Swing.
+Toward this end, a unsupervised k-means clustering model would help us in determining which states are considered solidly Clinton, which states are solidly Trump, and - most importantly - which states are swing states. By choosing a k = 3, we subdivide the states into Clinton, Trump, and Swing.
 
-First we need to create a State specific data set which we will call "State_Polls_Swing". This data set will pull in the same variable as we had in the National polling data but would exclude national polls or district specific polls. 
+First we need to create a State-specific data set which we will call "State_Polls_Swing". This data set will pull in the same variable as we had in the National polling data but would exclude national polls or district-specific polls. 
 
-It is important to note that some states allocate electoral votes by congressional district instead of in a "winner-take-all" fashion. Currently, only two states do so - Maine and Nebraska - but for the sake of simplicity we will assume that as the state goes, so go the congressional districts. Therefore, we will remove any district specific polls in our data. 
+It is important to note that some states allocate electoral votes by congressional district instead of in a "winner-take-all" fashion. Currently, only two states do so - Maine and Nebraska - but for the sake of simplicity, we will assume that as the state goes, so go the congressional districts. 
 
-We will also create a "Clinton_Margin" variable - similar to our difference in moving averages margin but which in this instance is calculated by subtracting Trump's raw polling numbers from Clinton's.
+We will also create a "Clinton_Margin" variable - similar to our difference in moving averages margin, calculated by subtracting Trump's raw polling numbers from Clinton's.
 
 Finally, we also wish to only calculate our k-means clusters using unique polling data so we will modify our polling data to only include unique polls. 
 
@@ -281,14 +281,14 @@ State_Polls_Swing <- Clean_Data %>%
   filter(state != "Nebraska CD-2") %>%
   filter(state != "Nebraska CD-3") %>%
   mutate(Clinton_Margin = rawpoll_clinton - rawpoll_trump)
-str(State_Polls_Swing)
+summary(State_Polls_Swing)
 ```
 
 When it comes to selecting a k value for our k-means cluster model, we understand through pre-existing domain knowledge that states often fall into one of three categories: deep red or Republican states, deep blue or Democratic states, and swing state - states that will often swing back and forth between the two parties depending on the candidates. Therefore, we should choose a k value of 3.
 
 We can confirm or deny this inclination using a scree plot. A scree plot charts the degree of scattering or variance inside a cluster as the total number of clusters increase. A scree plot compares the Sum of Squared Errors (SSE) - measured as the sum of the squared distances between the centroid and the other neighbors inside the cluster. Generally, SSE drops as more clusters are created. 
 
-In general, we should opt for a number of clusters where the SSE decreases dramatically to the left on our plot, but before it reaches a point of little to no chage as the number of clusters increases (i.e. as we move right along the grapth). If this dramatic drop (often referred to as an "eblow") occurs when the number of clusters is equal to 3, we can be confident that our selection of k = 3 is legitimate.
+In general, we should opt for a number of clusters where the SSE decreases dramatically to the left on our plot, but before it reaches a point of little to no change as the number of clusters increases (i.e. as we move right along the graph). If this dramatic drop (often referred to as an "elbow") occurs when the number of clusters is equal to 3, we can be confident that our selection of k = 3 is legitimate.
 
 ```{r}
 State_Polls_Scree <- State_Polls_Swing$Clinton_Margin
@@ -310,7 +310,7 @@ wssplot(df)
 
 The scree plot, indeed, confirms our inclination that k should be equal to 3. This will ensure that these three cluster solutions are distinct and will have a significant impact on our classification of the states.
 
-Now that we have calculated our Clinton_Margin variable we can remove the rawpoll_clinton and rawpoll_trump variables. Next we will calculate the euclidean distance amongst Clinton's polling margins and set k equal to 3. 
+Now that we have a k value and our new Clinton_Margin variable we can remove the rawpoll_clinton and rawpoll_trump variables. Next we will calculate the Euclidean distance amongst Clinton's polling margins and set k equal to 3. 
 
 ```{r}
 State_Polls_Swing$rawpoll_clinton = NULL
@@ -620,7 +620,7 @@ Total Electoral Votes: 81
 
 Total Electoral Votes: 184
 
-The model indicates that though Clinton holds what seems like a commanding, and potentiall winnding, lead the substantial list of swing states indicates that this lead is tenuous at best. It is highly unlikely that every single Clinton leaning state will break for Clinton - nor is it likely that every single Trump leaning state will break for Trump. All it takes is for one small Clinton leaning state to swing for Trump and for the swing states, in general, to break for Trump for Clinton to lose. That may seem unlikely, but crazier things have happened in presidential elections. 
+The model indicates that though Clinton holds what seems like a commanding, and potentially winning, lead the substantial list of swing states indicates that this lead is tenuous at best. It is highly unlikely that every single Clinton leaning state will break for Clinton - nor is it likely that every single Trump leaning state will break for Trump. All it takes is for one small Clinton leaning state to swing for Trump and for the swing states, in general, to break for Trump for Clinton to lose. That may seem unlikely, but crazier things have happened in presidential elections. 
 
 To better understand our swing states let's looks at their unrounded mean cluster group values to determine whether they are Clinton leaning or Trump leaning.
 
@@ -739,11 +739,11 @@ Thus, we have reached our first recommendation for the Clinton campaign: based o
 
 # Great! But Who Will Win?
 
-What is elegant and - most important - simple about our k-means clustering model is that we can dial up or down the k-value depending on the question we want to answer. We have aleeady answered the swing state question by choosing a k-value of 3, but if we want to answer our final question - who will win the election - we will need a k-value of 2.
+What is elegant and - most important - simple about our k-means clustering model is that we can dial up or down the k-value depending on the question we want to answer. We have already answered the swing state question by choosing a k-value of 3, but if we want to answer our final question - who will win the election - we can modify our model by setting k equal to 2.
 
-By choosing a k-value of 2, we split the decision into a binary choice: either Clinton wins a given state or she loses; 1 or 2. By simply modifying our k-value we can rerun our machine learning model to determine a winner in each state and make a final prediction about who will win the election.
+By choosing a k-value of 2, we split the decision into a binary choice: either Clinton wins a given state or she loses; 1 or 2. By making this very simple modification of our k-value we can rerun our model to determine a winner in each state and make a final prediction about who will win the election.
 
-Though our scree plot indicated that the data is most accurately divided into 3 catagories, the plot also shows that a k value of 2 is prehaps the second best division of the data, so we can be confident in our results.
+Though our scree plot indicated that the data is most accurately divided into 3 categories, the plot also shows that a k value of 2 is perhaps the second best division of the data, so we can still be confident in our results.
 
 We will repeat the process we followed in or swing state model, but set k = 2 instead of 3.
 
@@ -1033,8 +1033,8 @@ What is fascinating about the final results is that the list of solidly Clinton 
 
 This indicates two grand strategies that Clinton could adopt:
 
-## 1. Defensive/Conservative Strategy: Clinton should shore up her base in those states most likely to vote for her. This may not lead to an electoral blow-ou, but it would be the stategy most likely to lead to victory. 
-
+## 1. Defensive/Conservative Strategy: Clinton should shore up her base in those states most likely to vote for her. This may not lead to an electoral blow-out, but it would be the strategy most likely to lead to victory.
+ 
 If clinton were to adopt this strategy it would be important for her campaign to know which states in her coalition are most likely to defect to Trump. She should then devote campaign resources to these at-risk states in order to shore up her likelihood of reaching 270 electoral votes.
 
 Let's take a look at the Clinton states' unrounded mean cluster group scores to determine which states are most at risk.
@@ -1172,11 +1172,11 @@ Total Electoral Votes: 63
 
 If the Clinton campaign focuses on these states - particularly Pennsylvania, Michigan, and Wisconsin - Clinton will most likely have an electoral wall strong enough to defend against any encroachment by the Trump campaign. Though Clinton would win by a narrow electoral vote margin (only 8 electoral votes) her chances of winning would be more assured. 
 
-## 2. Offensive/Risky Strategy: Clinton should make a play for the swing states, dedicating resources to states with greatest number of electoral votes. Though Clinton may lose some blue states the result may be a larger overall electoral vote total.
+## 2. Offensive/Risky Strategy: Clinton should make a play for the swing states, dedicating resources to states with thee greatest number of electoral votes. Though Clinton may lose some blue states the result may be a larger overall electoral vote total.
 
-This strategy seeks to maximize electoral votes at greater electoral risk. This strategy isn't entirely irrational: making a push into large swing states could result in a larger electoral vote margin, and may therefore give Clinton greater political capital once in office. In other words, the goal is not just to win but to win big!
+This strategy seeks to maximize electoral votes at greater electoral risk. This strategy isn't entirely irrational: making a push into large swing states could result in a larger electoral vote margin, and may therefore give Clinton greater political capital once in office. In other words, the goal is not just to win but to win big.
 
-If the Clinton campaign chooses this strategy, it makes the most sense to campaign in those swing states with the largest number of electoral votes. Once again, these states include:
+If the Clinton campaign chooses this strategy, 1N
 
 1. Florida (29)
 2. Ohio (18)
@@ -1209,9 +1209,9 @@ First, let's examine the results of our swing state analysis. Let us define a sw
 10. North Carolina (-3.66%)*
 11. Colorado (+4.91%)
 
-*Indicates that the state was on our original list of swing states.
+*Indicates that the state was on the original list of swing states.
 
-Next, let's examine the accuracy of our model when it cames to categorizing solidly Clinton states. Below is a list of states that ended up being solid Clinton wins, which we will define as a Clinton margin greater than +5%:
+Next, let's examine the accuracy of our model when it comes to categorizing solidly Clinton states. Below is a list of states that ended up being solid Clinton wins, which we will define as a Clinton margin greater than +5%:
 
 1. District of Columbia (+86.78%)*
 2. Hawaii (+32.18%)*
@@ -1230,9 +1230,9 @@ Next, let's examine the accuracy of our model when it cames to categorizing soli
 16. New Mexico (+8.21%)*
 17. Virginia (+5.32%)*
 
-*Indicates that the state was on our original list of solidly Clinton states
+*Indicates that the state was on the original list of solidly Clinton states
 
-Finally, let's examine the accuracy of our model when it comes to categorizing solidly Trump states. Below is a list of states that ened up being solid Trump wins, which we will define as a Clinton margin less than -5%:
+Finally, let's examine the accuracy of our model when it comes to categorizing solidly Trump states. Below is a list of states that ended up being solid Trump wins, which we will define as a Clinton margin less than -5%:
 
 1. Wyoming (-46.30%)*
 2. West Virginia (-42.07%)*
@@ -1259,12 +1259,12 @@ Finally, let's examine the accuracy of our model when it comes to categorizing s
 23. Ohio (-8.13%)
 24. Georgia (-5.13%)
 
-*Indicates that the state was on our original list of solidly Trump states.
+*Indicates that the state was on the original list of solidly Trump states.
 
 In terms of swing states, we called 4 states out of 11 (a ~36.4% success rate); in terms of solidly Clinton states, we called 17 out of 17 (a 100% success rate); and in terms of solidly Trump states, we called 14 out of 24 (a ~58.3% success rate). Overall, our model accurately categorized ~67% of the states.
 
-If we had randomly assigned a 1/3 chance of assigning a state either as solidly Clinton, solidly Trump, or swing state status then we would have expected a success rate of 1/3 or 33.33%. Clearly our model was more accurate than this baseline.
+If we had randomly assigned a 1/3 chance of assigning a state either as solidly Clinton, solidly Trump, or swing state status then we would have expected a success rate of 1/3 or 33.33%. Clearly, our model was more accurate than this baseline.
 
-Next, let's turn to our final prediction. In the end we accurately predicted the winner of every states except 4 - Michigan, Nevada, Pennsylvania, and Wisconsin - a ~92% accuracy rate. If we compare this a random coin toss, we handily beat this baseline assumption of 50%. 
+Next, let's turn to our final prediction. In the end, we accurately predicted the winner of every state except 4 - Michigan, Nevada, Pennsylvania, and Wisconsin - a ~92% accuracy rate. If we compare this a random coin toss, we handily beat this baseline assumption of 50%. 
 
-But note! Of those four states we got wrong, three were on our "at risk" list of states: Pennsylvania, Michigan, and Wisconsin. As part of our conservative startegy recommendation we urged the Clinton campaign to dedicate resources to these three states in order to shore up support and to prevent defection - especially given her very narrow and extremely tenuous lead in the electoral college.
+But note: of those four states we got wrong, three were on our "at risk" list of states: Pennsylvania, Michigan, and Wisconsin. As part of our conservative strategy recommendation, we urged the Clinton campaign to dedicate resources to these three states in order to shore up support and to prevent defection - especially given her very narrow and extremely tenuous lead in the electoral college.
