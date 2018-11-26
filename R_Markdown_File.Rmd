@@ -205,24 +205,19 @@ install.packages("zoo")
 library(zoo)
 
 National_Polls <- National_Polls %>%
-  mutate(Clinton_MA = rollmean(rawpoll_clinton, 100, na.pad=TRUE, align="right"))
-
-Clinton_MA_plot <- ggplot(data = National_Polls, aes(x=enddate, y=Clinton_MA)) +
-  geom_line(color = "blue")
-
-print(Clinton_MA_plot + ggtitle("Clinton 100 Poll Moving Average"))
-```
-
-Let's now do the same for Trump's raw polling data.
-
-```{r}
-National_Polls <- National_Polls %>%
+  mutate(Clinton_MA = rollmean(rawpoll_clinton, 100, na.pad=TRUE, align="right")) %>%
   mutate(Trump_MA = rollmean(rawpoll_trump, 100, na.pad=TRUE, align="right"))
 
-Trump_MA_plot <- ggplot(data = National_Polls, aes(x=enddate, y=Trump_MA)) +
-  geom_line(color = "red")
+x <- National_Polls$enddate
+y1 <- National_Polls$Clinton_MA
+y2 <- National_Polls$Trump_MA
+df <- data.frame(x, y1, y2)
+str(df)
 
-print(Trump_MA_plot + ggtitle("Trump 100 Poll Moving Average"))
+MA_plot <- ggplot(df, aes(x)) + geom_line(aes(y=y1), colour="blue") + geom_line(aes(y=y2), colour="red")
+MA_plot <- MA_plot + ylab("100 Poll Moving Average") + xlab("enddate") + ggtitle("100 Poll Moving Average - Clinton vs. Trump")
+
+print(MA_plot)
 ```
 
 After smoothing out the data we can see some clear patterns. Early on in the cycle it appears that Clinton had an early and substantial lead in the national polls (though this is tempered by the fact that there were fewer polls during this period). 
@@ -240,7 +235,8 @@ National_Polls <- National_Polls %>%
   mutate(Clinton_Margin = Clinton_MA - Trump_MA)
 
 Clinton_Margin_plot <- ggplot(National_Polls, aes(x=enddate, y=Clinton_Margin)) +
-  geom_line(color = "purple")
+  geom_line(color = "purple") + 
+  geom_hline(yintercept=0)
 
 print(Clinton_Margin_plot + ggtitle("Clinton_Margin 100 Poll Moving Average"))
 ```
