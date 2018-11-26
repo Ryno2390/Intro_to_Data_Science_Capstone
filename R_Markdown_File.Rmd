@@ -10,47 +10,6 @@ URL: https://github.com/Ryno2390/Intro_to_Data_Science_Capstone.git
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Questions to Answer
-
-## What is the problem you want to solve?
-
-Analyze U.S. polling data during the 2016 presidential election in order to create a model that would not only predict who would have won the 2016 Presidential election, but would also provide actionable intelligence to a presidential campaign.
-
-## Who is your client and why do they care about this problem? In other words, what will your client DO or DECIDE based on your analysis that they wouldn’t have otherwise?
-
-Presidential campaigns are big business. The final price tag for the 2016 election was $6.5 billion for the presidential and congressional elections combined, according to campaign finance watchdog OpenSecrets.org (https://www.opensecrets.org/news/2017/04/election-2016-trump-fewer-donors-provided-more-of-the-cash/), with the presidential race, alone, responsible for $2.4 billion of that total.
-
-Needless to say, there are a lot of interested parties when it comes to the outcome of elections - perhaps the most interested party being that of the campaigns themselves. Of the $2.4 billion spent on the presidential campaigns in 2016, $398 million was spent by the Trump campaign, and a whopping $768 million was spent by the Clinton campaign, a sizable percentage of which was spent on data and analytics.
-
-For this project I will be assuming that my main client is the Clinton campaign. My job, in this hypothetical scenario, is to build model that could not only predict who would win the election (based on readily available polling data) but also how to proceed strategically - specifically, which states to campaign in and which to avoid.
-
-This type of information is valuable to campaigns as campaigns face budget constraints. Though the Clinton campaign spent a large amount of money during the 2016 campaign, the campaign's budget was not infinite; all campaigns have to make strategic decisions about how to optimally allocate the limited resources at their disposal.
-
-To aid the campaign in making resource allocation decisions, my model will be designed to provide answers to two basic questions:
-
-1. What states should the Clinton campaign focus on (i.e. to determine which states are "swing" states)?
-2. Which candidate is most likely to win in each state - Clinton or Trump?
-
-## What data are you going to use for this? How will you acquire this data?
-
-I will use FiveThirtyEight.com's data which is readily available through Kaggle.com (https://www.kaggle.com/fivethirtyeight/2016-election-polls#presidential_polls.csv)
-
-## In brief, outline your approach to solving this problem (knowing that this might change later).
-
-My approach will be to create a machine learning program that will be able to incorporate new, raw polling data in order to categorize states according to status: Clinton supporting, Trump Supporting, or Swing. I will attempt to do this using an unsupervised, k-means clustering method. 
-
-Using a modified version of this method, I will also categorize states into a simple binary of Clinton and Trump states, updating my prediction of electoral vote totals for each candidate, with The candidate who reaches 270 electoral votes deemed the likely winner.
-
-## What are your deliverables? Typically, this would include code, along with a paper and/or a slide deck.
-
-The deliverables will include:
-
-+ A walkthrough of the model using RMarkdown
-
-+ A detailed summary paper intended for the senior members of the campaign, containing recommednations for campaign allocation of resources and predictions.
-
-+ A slide deck, walking the hypothetical Senior Team through the model and its findings.
-
 # Upload data into RStudio
 
 The first step is to upload FiveThirtyEight's election data to RStudio.
