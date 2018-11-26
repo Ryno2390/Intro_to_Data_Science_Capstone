@@ -1027,6 +1027,30 @@ Total Electoral Votes: 273
 
 Total Electoral Votes: 265
 
+Let's look at the unrounded cluster group values of the previously identified "hit list" states.
+
+```{r}
+Florida_Cluster_Final <- mean(clusterGroups_Final[State_Polls_Final$state == "Florida"])
+Florida_Cluster_Final
+
+Ohio_Cluster_Final <- mean(clusterGroups_Final[State_Polls_Final$state == "Ohio"])
+Ohio_Cluster_Final
+
+North_Carolina_Cluster_Final <- mean(clusterGroups_Final[State_Polls_Final$state == "North Carolina"])
+North_Carolina_Cluster_Final
+
+Arizona_Cluster_Final <- mean(clusterGroups_Final[State_Polls_Final$state == "Arizona"])
+Arizona_Cluster_Final
+
+Iowa_Cluster_Final <- mean(clusterGroups_Final[State_Polls_Final$state == "Iowa"])
+Iowa_Cluster_Final
+
+Nevada_Cluster_Final <- mean(clusterGroups_Final[State_Polls_Final$state == "Nevada"])
+Nevada_Cluster_Final
+```
+
+It looks like when we modify our k value and set it equal to 2, the model reclassifies what were moderately Clinton leaning states into solidly Trump supporting states. Therefore, it is important to note that when we say "Clinton Leaning" we do not mean "predicted to be a Clinton win". Instead, what we mean is that of those states classified as swing in our k = 3 model, these "hit list" states were the most Clinton leaning.
+
 # Defenses Win Championships
 
 What is fascinating about the final results is that the list of solidly Clinton supporting states did not change. Though Clinton's coalition of states is stable, the fact that Trump ran the board on the swing states should worry the Clinton campaign.
